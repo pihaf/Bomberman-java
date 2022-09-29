@@ -22,6 +22,7 @@ public class Bomber extends Entity {
         super( x, y, img);
     }
     @Override
+    // xu ly EventHandler
     public void update() {
         if(direction==KeyCode.RIGHT) {
             goRight();

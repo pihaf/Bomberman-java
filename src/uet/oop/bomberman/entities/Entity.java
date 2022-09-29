@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 
 public abstract class Entity {
     //Tọa độ X tính từ góc trái trên trong Canvas
+    protected int xx = 1;
     protected int x;
 
     //Tọa độ Y tính từ góc trái trên trong Canvas

@@ -61,6 +61,7 @@ public class BombermanGame extends Application  {
             }
         };
         timer.start();
+        // chep cua o kia tu nhien dc :))
         scene.setOnKeyPressed(event -> {
             bomberman.handleKeyPressedEvent(event.getCode());
         });
@@ -85,7 +86,9 @@ public class BombermanGame extends Application  {
     }
 
     public void update() {
+        // animation cho cac entity
         entities.forEach(Entity::update);
+        // animation cho bomb (hien tai van chua the su dung dc)
         for(Entity bomb : bomberman.getBombs()) {
             bomb.update();
         }
@@ -95,6 +98,7 @@ public class BombermanGame extends Application  {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
+        // cai nay cung chua xu ly duoc
         bomberman.getBombs().forEach(g->g.render(gc));
     }
 }
