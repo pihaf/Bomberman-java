@@ -2,21 +2,24 @@ package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.control.Button;
 
-import java.awt.event.KeyEvent;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.FlowPane;
-public class BombermanGame extends Application {
-    
+public class BombermanGame extends Application  {
+    public static Bomber bomberman = new Bomber(1 , 1, Sprite.player_right.getFxImage());
+
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
     
@@ -24,6 +27,7 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
+
 
 
     public static void main(String[] args) {
@@ -40,7 +44,6 @@ public class BombermanGame extends Application {
         // Tao root container
         Group root = new Group();
         root.getChildren().add(canvas);
-
         // Tao scene
         Scene scene = new Scene(root);
 
@@ -48,7 +51,7 @@ public class BombermanGame extends Application {
         stage.setScene(scene);
         stage.show();
         createMap();
-        Entity bomberman = new Bomber(4 , 1, Sprite.player_right.getFxImage());
+        ArrayList<Entity> bombs = bomberman.getBombs();
         entities.add(bomberman);
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -58,8 +61,10 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
-
-
+        scene.setOnKeyPressed(event -> {
+            bomberman.handleKeyPressedEvent(event.getCode());
+        });
+        scene.setOnKeyReleased(event -> bomberman.handleKeyReleasedEvent(event.getCode()));
 
     }
 
@@ -79,13 +84,17 @@ public class BombermanGame extends Application {
 
     }
 
-    public void update(KeyEvent e) {
+    public void update() {
         entities.forEach(Entity::update);
+        for(Entity bomb : bomberman.getBombs()) {
+            bomb.update();
+        }
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
+        bomberman.getBombs().forEach(g->g.render(gc));
     }
 }
