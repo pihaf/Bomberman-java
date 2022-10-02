@@ -68,14 +68,14 @@ public class BombermanGame extends Application  {
         scene.setOnKeyReleased(event -> bomberman.handleKeyReleasedEvent(event.getCode()));
 
     }
-
+// tạo map
     public void createMap() {
 
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 Entity object;
                 if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                    object = new Wall(i, j, Sprite.wall.getFxImage());
+                     object = new Wall(i, j, Sprite.wall.getFxImage());
                 } else {
                     object = new Grass(i, j, Sprite.grass.getFxImage());
                 }

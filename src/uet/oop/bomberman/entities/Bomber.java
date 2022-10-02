@@ -22,7 +22,7 @@ public class Bomber extends Entity {
         super( x, y, img);
     }
     @Override
-    // xu ly EventHandler
+    // xu ly animation cua bomberman
     public void update() {
         if(direction==KeyCode.RIGHT) {
             goRight();
@@ -43,6 +43,7 @@ public class Bomber extends Entity {
         }
 
     }
+    // sử lý di chuyển cho bomb
     public void handleKeyPressedEvent(KeyCode keyCode) {
 
         if (keyCode == KeyCode.LEFT || keyCode == KeyCode.RIGHT
@@ -53,6 +54,7 @@ public class Bomber extends Entity {
             isBomb = true;
         }
     }
+    // sử lý di chuyển cho bomb
     public void handleKeyReleasedEvent(KeyCode keyCode) {
         if (direction == keyCode) {
             if (direction == KeyCode.LEFT) {
@@ -95,7 +97,7 @@ public class Bomber extends Entity {
     public void placeBomb() {
 
         bombs.add( new Bomb(x, y, Sprite.bomb.getFxImage()));
-        System.out.println("here");
+        System.out.println("bomb placed");
     }
     public ArrayList<Entity> getBombs() {
         return bombs;
