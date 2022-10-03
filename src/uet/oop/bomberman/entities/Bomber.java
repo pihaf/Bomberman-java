@@ -13,17 +13,19 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 
-public class Bomber extends Entity {
+public class Bomber extends AnimatedEntity {
     private boolean isBomb = false;
     private ArrayList<Entity> bombs = new ArrayList<>();
 
     private KeyCode direction = null;
     public Bomber(int x, int y, Image img ) {
         super( x, y, img);
+        setSpeed(2);
     }
     @Override
     // xu ly animation cua bomberman
     public void update() {
+
         if(direction==KeyCode.RIGHT) {
             goRight();
         }
@@ -76,22 +78,22 @@ public class Bomber extends Entity {
         }
     }
     public void goLeft() {
-        x-=2;
+        super.goLeft();
         img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, xx++, 20).getFxImage();
     }
 
     public void goRight() {
-        x+=2;
+        super.goRight();
         img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2,xx++ , 20).getFxImage();
     }
 
     public void goUp() {
-        y-=2;
+        super.goUp();
         img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, xx++, 20).getFxImage();
     }
 
     public void goDown() {
-        y+=2;
+        super.goDown();
         img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2,xx++ , 20).getFxImage();
     }
     public void placeBomb() {

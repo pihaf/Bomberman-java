@@ -7,9 +7,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public abstract class Entity {
+    protected boolean alive;
     //Tọa độ X tính từ góc trái trên trong Canvas
     protected int xx = 1;
     protected int x;
@@ -20,7 +22,7 @@ public abstract class Entity {
     protected Image img;
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
-    public Entity( int xUnit, int yUnit, Image img) {
+    public Entity(int xUnit, int yUnit, Image img) {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
@@ -29,5 +31,10 @@ public abstract class Entity {
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }
+
     public abstract void update();
+
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+    }
 }
