@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -74,7 +75,8 @@ public class BombermanGame extends Application  {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 Entity object;
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
+
+                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1||(i == 3 && j == 5)) {
                      object = new Wall(i, j, Sprite.wall.getFxImage());
                 } else {
                     object = new Grass(i, j, Sprite.grass.getFxImage());
@@ -86,12 +88,15 @@ public class BombermanGame extends Application  {
     }
 
     public void update() {
+        bomberman.move();
         // animation cho cac entity
         entities.forEach(Entity::update);
         // animation cho bomb (hien tai van chua the su dung dc)
         for(Entity bomb : bomberman.getBombs()) {
             bomb.update();
         }
+        handleCollision();
+
     }
 
     public void render() {
@@ -101,4 +106,16 @@ public class BombermanGame extends Application  {
         // cai nay cung chua xu ly duoc
         bomberman.getBombs().forEach(g->g.render(gc));
     }
+// handle collision, da xong phan cuc da
+    public void handleCollision() {
+        Rectangle bomber = bomberman.getHitBox();
+        for (Entity stillObject : stillObjects) {
+            Rectangle r = stillObject.getHitBox();
+            if (stillObject instanceof Wall && bomber.intersects(r)) {
+                bomberman.stay();
+                System.out.println("stop");
+            }
+        }
+    }
 }
+

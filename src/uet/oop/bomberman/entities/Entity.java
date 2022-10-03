@@ -34,7 +34,7 @@ public abstract class Entity {
 
     public abstract void update();
 
-    public Rectangle getBounds() {
+    public Rectangle getHitBox() {
         return new Rectangle(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }
 }

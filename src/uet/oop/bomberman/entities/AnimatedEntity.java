@@ -48,7 +48,7 @@ public void setSpeed(int speed) {
         desY = y;
     }
 
-    public Rectangle getBounds() {
+    public Rectangle getHitBox() {
         return new Rectangle(desX, desY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }
 

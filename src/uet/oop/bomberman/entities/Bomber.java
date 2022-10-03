@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 
 public class Bomber extends AnimatedEntity {
+    int bombNum ;
     private boolean isBomb = false;
     private ArrayList<Entity> bombs = new ArrayList<>();
 
@@ -21,6 +22,7 @@ public class Bomber extends AnimatedEntity {
     public Bomber(int x, int y, Image img ) {
         super( x, y, img);
         setSpeed(2);
+        bombNum = 1 ;
     }
     @Override
     // xu ly animation cua bomberman
@@ -39,8 +41,9 @@ public class Bomber extends AnimatedEntity {
             goUp();
         }
         if (direction == KeyCode.SPACE) {
-        if(isBomb) {
+        if(isBomb&&bombNum == 1) {
             placeBomb();
+            bombNum--;
         }
         }
 
