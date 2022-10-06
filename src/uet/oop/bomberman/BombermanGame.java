@@ -52,7 +52,7 @@ public class BombermanGame extends Application  {
         stage.setScene(scene);
         stage.show();
         createMap();
-        ArrayList<Entity> bombs = bomberman.getBombs();
+        ArrayList<Bomb> bombs = bomberman.getBombs();
         entities.add(bomberman);
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -91,8 +91,9 @@ public class BombermanGame extends Application  {
         bomberman.move();
         // animation cho cac entity
         entities.forEach(Entity::update);
-        // animation cho bomb (hien tai van chua the su dung dc)
-        for(Entity bomb : bomberman.getBombs()) {
+        ArrayList<Bomb> bombs = bomberman.getBombs();
+        // cac hoat dong cua bom
+        for(Bomb bomb : bombs) {
             bomb.update();
         }
         handleCollision();
@@ -104,7 +105,10 @@ public class BombermanGame extends Application  {
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
         // cai nay cung chua xu ly duoc
-        bomberman.getBombs().forEach(g->g.render(gc));
+        ArrayList<Bomb> bombs = bomberman.getBombs();
+        for (Bomb bomb : bombs) {
+            bomb.render(gc);
+        }
     }
 // handle collision, da xong phan cuc da
     public void handleCollision() {
@@ -115,6 +119,6 @@ public class BombermanGame extends Application  {
                 bomberman.stay();
             }
         }
-    }
+        }
 }
 

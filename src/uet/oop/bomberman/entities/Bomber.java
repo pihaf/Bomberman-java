@@ -16,13 +16,13 @@ import java.util.ArrayList;
 public class Bomber extends AnimatedEntity {
     int bombNum ;
     private boolean isBomb = false;
-    private ArrayList<Entity> bombs = new ArrayList<>();
+    private ArrayList<Bomb> bombs = new ArrayList<>();
 
     private KeyCode direction = null;
     public Bomber(int x, int y, Image img ) {
         super( x, y, img);
         setSpeed(2);
-        bombNum = 1 ;
+        bombNum = 0 ;
     }
     @Override
     // xu ly animation cua bomberman
@@ -41,9 +41,8 @@ public class Bomber extends AnimatedEntity {
             goUp();
         }
         if (direction == KeyCode.SPACE) {
-        if(isBomb&&bombNum == 1) {
+        if(isBomb) {
             placeBomb();
-            bombNum--;
         }
         }
 
@@ -100,11 +99,17 @@ public class Bomber extends AnimatedEntity {
         img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2,xx++ , 20).getFxImage();
     }
     public void placeBomb() {
-
-        bombs.add( new Bomb(x, y, Sprite.bomb.getFxImage()));
-        System.out.println("bomb placed");
+        if (bombNum >= 0) {
+            int xB = (int) Math.round((x + 4) / (double) Sprite.SCALED_SIZE);
+            int yB = (int) Math.round((y + 4) / (double) Sprite.SCALED_SIZE);
+            for (Bomb bomb : bombs) {
+                if (xB * Sprite.SCALED_SIZE == bomb.x && yB * Sprite.SCALED_SIZE == bomb.y) return;
+            }
+            bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage()));
+            bombNum--;
+        }
     }
-    public ArrayList<Entity> getBombs() {
+    public ArrayList<Bomb> getBombs() {
         return bombs;
     }
     }
