@@ -26,10 +26,13 @@ public class BombermanGame extends Application  {
     
     private GraphicsContext gc;
     private Canvas canvas;
-    private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
+    public static List<Entity> entities = new ArrayList<>();
+    public static List<Entity> stillObjects = new ArrayList<>();
 
+    public static final List<Flame> flameList = new ArrayList<>();
 
+    //start flame radius, neu co powerups thi tang len
+    public int flameRadius = 1;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -75,9 +78,10 @@ public class BombermanGame extends Application  {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 Entity object;
-
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1||(i == 3 && j == 5)) {
-                     object = new Wall(i, j, Sprite.wall.getFxImage());
+                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1||(i == 3 && j == 6)) {
+                    object = new Wall(i, j, Sprite.wall.getFxImage());
+                } else if (i % 5 == 0 && j % 5 == 0) {
+                    object = new Brick(i, j, Sprite.brick.getFxImage());
                 } else {
                     object = new Grass(i, j, Sprite.grass.getFxImage());
                 }
@@ -91,6 +95,9 @@ public class BombermanGame extends Application  {
         bomberman.move();
         // animation cho cac entity
         entities.forEach(Entity::update);
+        for (int i = 0; i < flameList.size(); i ++) {
+            flameList.get(i).update();
+        }
         ArrayList<Bomb> bombs = bomberman.getBombs();
         // cac hoat dong cua bom
         for(Bomb bomb : bombs) {
@@ -109,13 +116,14 @@ public class BombermanGame extends Application  {
         for (Bomb bomb : bombs) {
             bomb.render(gc);
         }
+        flameList.forEach(g -> g.render(gc));
     }
 // handle collision, da xong phan cuc da
     public void handleCollision() {
         Rectangle bomber = bomberman.getHitBox();
         for (Entity stillObject : stillObjects) {
             Rectangle r = stillObject.getHitBox();
-            if (stillObject instanceof Wall && bomber.intersects(r)) {
+            if ((stillObject instanceof Wall || stillObject instanceof Brick) && bomber.intersects(r)) {
                 bomberman.stay();
             }
         }

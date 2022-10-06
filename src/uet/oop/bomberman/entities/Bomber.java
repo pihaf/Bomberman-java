@@ -17,13 +17,19 @@ public class Bomber extends AnimatedEntity {
     int bombNum ;
     private boolean isBomb = false;
     private ArrayList<Bomb> bombs = new ArrayList<>();
-
+    private int radius;
     private KeyCode direction = null;
     public Bomber(int x, int y, Image img ) {
         super( x, y, img);
         setSpeed(2);
-        bombNum = 0 ;
+        bombNum = 0;
+        setRadius(1);
     }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
+
     @Override
     // xu ly animation cua bomberman
     public void update() {
@@ -40,12 +46,16 @@ public class Bomber extends AnimatedEntity {
         if (direction == KeyCode.UP) {
             goUp();
         }
-        if (direction == KeyCode.SPACE) {
         if(isBomb) {
+            bombNum++;
             placeBomb();
         }
+        for (int i = 0; i < bombs.size(); i++) {
+            Bomb bomb = bombs.get(i);
+            if (!bomb.isAlive()) {
+                bombs.remove(bomb);
+            }
         }
-
     }
     // sử lý di chuyển cho bomb
     public void handleKeyPressedEvent(KeyCode keyCode) {

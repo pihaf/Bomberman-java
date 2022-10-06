@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public abstract class Entity {
-    protected boolean alive;
+    protected boolean alive = true;
     //Tọa độ X tính từ góc trái trên trong Canvas
     protected int xx = 1;
     protected int x;
@@ -28,11 +28,20 @@ public abstract class Entity {
         this.img = img;
     }
 
+    public Entity(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }
 
     public abstract void update();
+
+    public boolean isAlive() {
+        return alive;
+    }
 
     public Rectangle getHitBox() {
         return new Rectangle(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
