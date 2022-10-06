@@ -8,15 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/BombermanGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/BombermanGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/AnimatedEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/AnimatedEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Grass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Grass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Wall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomber.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomber.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Entity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Grass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Grass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Wall.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/AnimatedEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/AnimatedEntity.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

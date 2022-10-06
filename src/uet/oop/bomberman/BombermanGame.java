@@ -113,7 +113,6 @@ public class BombermanGame extends Application  {
             Rectangle r = stillObject.getHitBox();
             if (stillObject instanceof Wall && bomber.intersects(r)) {
                 bomberman.stay();
-                System.out.println("stop");
             }
         }
     }
