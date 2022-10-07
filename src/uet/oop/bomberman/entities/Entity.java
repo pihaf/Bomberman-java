@@ -11,7 +11,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public abstract class Entity {
-    protected boolean alive = true;
+    protected boolean alive;
+    protected int animated = 0;
     //Tọa độ X tính từ góc trái trên trong Canvas
     protected int xx = 1;
     protected int x;
@@ -41,6 +42,9 @@ public abstract class Entity {
 
     public boolean isAlive() {
         return alive;
+    }
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 
     public Rectangle getHitBox() {

@@ -19,6 +19,7 @@ public class Bomber extends AnimatedEntity {
     private ArrayList<Bomb> bombs = new ArrayList<>();
     private int radius;
     private KeyCode direction = null;
+    private int timeAfterDie = 0;
     public Bomber(int x, int y, Image img ) {
         super( x, y, img);
         setSpeed(2);
@@ -55,6 +56,11 @@ public class Bomber extends AnimatedEntity {
             if (!bomb.isAlive()) {
                 bombs.remove(bomb);
             }
+        }
+        //
+        if(!isAlive()) {
+            timeAfterDie ++;
+            die();
         }
     }
     // sử lý di chuyển cho bomb
@@ -122,6 +128,13 @@ public class Bomber extends AnimatedEntity {
     public ArrayList<Bomb> getBombs() {
         return bombs;
     }
+
+    public void die() {
+        if(timeAfterDie <= 45) {
+            img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2,
+                    Sprite.player_dead3, timeAfterDie, 20).getFxImage();
+        }
     }
+}
 
 

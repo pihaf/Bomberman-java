@@ -17,13 +17,17 @@ import javafx.scene.control.Button;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.scene.layout.FlowPane;
 public class BombermanGame extends Application  {
     public static Bomber bomberman = new Bomber(1 , 1, Sprite.player_right.getFxImage());
 
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
-    
+    private int xStart;
+    private int yStart;
     private GraphicsContext gc;
     private Canvas canvas;
     public static List<Entity> entities = new ArrayList<>();
@@ -33,7 +37,9 @@ public class BombermanGame extends Application  {
 
     //start flame radius, neu co powerups thi tang len
     public int flameRadius = 1;
-
+    public int startBomb = 1;
+    public int startSpeed = 2;
+    public int startFlame = 1;
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -72,23 +78,25 @@ public class BombermanGame extends Application  {
         scene.setOnKeyReleased(event -> bomberman.handleKeyReleasedEvent(event.getCode()));
 
     }
-// tạo map
-    public void createMap() {
 
+    //tao map
+    public void createMap() {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 Entity object;
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1||(i == 3 && j == 6)) {
+                Entity brick = null;
+                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
                     object = new Wall(i, j, Sprite.wall.getFxImage());
-                } else if (i % 5 == 0 && j % 5 == 0) {
-                    object = new Brick(i, j, Sprite.brick.getFxImage());
                 } else {
                     object = new Grass(i, j, Sprite.grass.getFxImage());
+                    if (i % 2 == 0 && j % 2 == 0) {
+                        brick = new Brick(i, j, Sprite.brick.getFxImage());
+                    }
                 }
                 stillObjects.add(object);
+                if (brick != null) stillObjects.add(brick);
             }
         }
-
     }
 
     public void update() {
@@ -98,13 +106,17 @@ public class BombermanGame extends Application  {
         for (int i = 0; i < flameList.size(); i ++) {
             flameList.get(i).update();
         }
+        bomberman.update();
         ArrayList<Bomb> bombs = bomberman.getBombs();
         // cac hoat dong cua bom
         for(Bomb bomb : bombs) {
             bomb.update();
         }
+        for (int i = 0; i < stillObjects.size(); i ++) {
+            stillObjects.get(i).update();
+        }
         handleCollision();
-
+        checkCollisionFlame();
     }
 
     public void render() {
@@ -127,6 +139,42 @@ public class BombermanGame extends Application  {
                 bomberman.stay();
             }
         }
+    }
+
+    /**
+     * flame collision.
+     *
+     */
+    public void checkCollisionFlame() {
+        for (Flame flame : flameList) {
+            Rectangle r1 = flame.getHitBox();
+            for (Entity stillObject : stillObjects) {
+                Rectangle r2 = stillObject.getHitBox();
+                //!stillObject instanceof Item
+                if (r1.intersects(r2)) {
+                    stillObject.setAlive(false);
+                }
+            }
+            //chua co check va cham voi enemy
+            Rectangle r2 = bomberman.getHitBox();
+            if (r1.intersects(r2)) {
+                bomberman.setAlive(false);
+                startBomb = 1;
+                startFlame = 1;
+                startSpeed = 1;
+                if (!bomberman.isAlive()) {
+                    Timer count = new Timer();
+                    count.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            bomberman = new Bomber(xStart, yStart, Sprite.player_right.getFxImage());
+                            count.cancel();
+                        }
+                    }, 500, 1);
+                    //dead sound
+                }
+            }
         }
+    }
 }
 

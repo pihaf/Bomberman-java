@@ -9,6 +9,7 @@ public class Bomb extends Entity {
     int radius = 1;
     public Bomb(int x, int y, Image img ) {
         super( x, y, img);
+        alive = true;
     }
     @Override
     public void render(GraphicsContext gc) {
