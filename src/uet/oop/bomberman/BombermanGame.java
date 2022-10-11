@@ -22,9 +22,8 @@ import java.util.TimerTask;
 
 import javafx.scene.layout.FlowPane;
 public class BombermanGame extends Application  {
-    public static Bomber bomberman = new Bomber(1 , 1, Sprite.player_right.getFxImage());
-
     public static final int WIDTH = 20;
+
     public static final int HEIGHT = 15;
     private int xStart;
     private int yStart;
@@ -40,12 +39,14 @@ public class BombermanGame extends Application  {
     public int startBomb = 1;
     public int startSpeed = 2;
     public int startFlame = 1;
+    private Bomber bomberman = new Bomber(1 , 1, Sprite.player_right.getFxImage());
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
 
     @Override
     public void start(Stage stage) {
+
 
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -64,11 +65,18 @@ public class BombermanGame extends Application  {
         ArrayList<Bomb> bombs = bomberman.getBombs();
         entities.add(bomberman);
         AnimationTimer timer = new AnimationTimer() {
+            public long prevTime = 0;
             @Override
             public void handle(long now) {
-                render();
-                update();
+            long dt = now - prevTime;
+                if (dt > 10000000) {
+                    render();
+                    update();
+                    prevTime = now;
+                }
             }
+
+
         };
         timer.start();
         // chep cua o kia tu nhien dc :))
@@ -162,19 +170,24 @@ public class BombermanGame extends Application  {
                 startBomb = 1;
                 startFlame = 1;
                 startSpeed = 1;
+            }
                 if (!bomberman.isAlive()) {
                     Timer count = new Timer();
                     count.schedule(new TimerTask() {
                         @Override
                         public void run() {
-                            bomberman = new Bomber(xStart, yStart, Sprite.player_right.getFxImage());
+                            entities.remove(bomberman);
+                            bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
+                            entities.add(bomberman);
                             count.cancel();
+
                         }
-                    }, 500, 1);
-                    //dead sound
+
+                    }
+                    , 500, 1);
+                    break;//dead sound
                 }
             }
         }
-    }
-}
+        }
 
