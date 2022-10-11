@@ -22,6 +22,7 @@ public class Bomber extends AnimatedEntity {
     private int timeAfterDie = 0;
     public Bomber(int x, int y, Image img ) {
         super( x, y, img);
+        setLayer(1);
         setSpeed(2);
         bombNum = 0;
         setRadius(1);
@@ -59,8 +60,10 @@ public class Bomber extends AnimatedEntity {
         }
         //
         if(!isAlive()) {
+            direction = null;
             timeAfterDie ++;
             die();
+            img = Sprite.player_dead1.getFxImage();
         }
     }
     // sử lý di chuyển cho bomb
@@ -115,7 +118,7 @@ public class Bomber extends AnimatedEntity {
         img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2,xx++ , 20).getFxImage();
     }
     public void placeBomb() {
-        if (bombNum >= 0) {
+        if (bombNum > 0) {
             int xB = (int) Math.round((x + 4) / (double) Sprite.SCALED_SIZE);
             int yB = (int) Math.round((y + 4) / (double) Sprite.SCALED_SIZE);
             for (Bomb bomb : bombs) {

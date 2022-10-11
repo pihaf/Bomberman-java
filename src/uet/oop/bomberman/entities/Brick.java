@@ -9,6 +9,7 @@ import java.awt.*;
 public class Brick extends Entity{
     public Brick(int x, int y, Image img) {
         super(x, y, img);
+        setLayer(3);
         alive = true;
     }
 

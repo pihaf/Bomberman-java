@@ -11,6 +11,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.enemies.Balloom;
+import uet.oop.bomberman.entities.enemies.Doll;
+import uet.oop.bomberman.entities.enemies.Enemy;
+import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.control.Button;
 
@@ -26,14 +30,14 @@ public class BombermanGame extends Application  {
 
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
-    private int xStart;
-    private int yStart;
+    private int xStart = 1;
+    private int yStart = 1;
     private GraphicsContext gc;
     private Canvas canvas;
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
-
-    public static final List<Flame> flameList = new ArrayList<>();
+    public static final List<Enemy> enemies = new ArrayList<>();
+    public static final List<Flame> flame = new ArrayList<>();
 
     //start flame radius, neu co powerups thi tang len
     public int flameRadius = 1;
@@ -58,6 +62,7 @@ public class BombermanGame extends Application  {
         Scene scene = new Scene(root);
 
         // Them scene vao stage
+        stage.setTitle("Bomberman");
         stage.setScene(scene);
         stage.show();
         createMap();
@@ -92,6 +97,15 @@ public class BombermanGame extends Application  {
                     if (i % 2 == 0 && j % 2 == 0) {
                         brick = new Brick(i, j, Sprite.brick.getFxImage());
                     }
+                    if (i == 9 && j == 9) {
+                        enemies.add(new Balloom(i, j, Sprite.balloom_left1.getFxImage()));
+                    }
+                    if (i == 5 && j == 5) {
+                        enemies.add(new Doll(i, j, Sprite.doll_left1.getFxImage()));
+                    }
+                    if (i == 7 && j == 7) {
+                        enemies.add(new Oneal(i, j, Sprite.oneal_left1.getFxImage()));
+                    }
                 }
                 stillObjects.add(object);
                 if (brick != null) stillObjects.add(brick);
@@ -103,8 +117,11 @@ public class BombermanGame extends Application  {
         bomberman.move();
         // animation cho cac entity
         entities.forEach(Entity::update);
-        for (int i = 0; i < flameList.size(); i ++) {
-            flameList.get(i).update();
+        for (int i = 0; i < flame.size(); i ++) {
+            flame.get(i).update();
+        }
+        for (int i = 0; i < enemies.size(); i ++) {
+            enemies.get(i).update();
         }
         bomberman.update();
         ArrayList<Bomb> bombs = bomberman.getBombs();
@@ -123,12 +140,13 @@ public class BombermanGame extends Application  {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
+        enemies.forEach(g -> g.render(gc));
         // cai nay cung chua xu ly duoc
         ArrayList<Bomb> bombs = bomberman.getBombs();
         for (Bomb bomb : bombs) {
             bomb.render(gc);
         }
-        flameList.forEach(g -> g.render(gc));
+        flame.forEach(g -> g.render(gc));
     }
 // handle collision, da xong phan cuc da
     public void handleCollision() {
@@ -139,6 +157,56 @@ public class BombermanGame extends Application  {
                 bomberman.stay();
             }
         }
+
+        //Bomber vs Enemies
+        for (Enemy enemy : enemies) {
+            Rectangle r2 = enemy.getHitBox();
+            if (bomber.intersects(r2)) {
+                bomberman.stay();
+                bomberman.setAlive(false);
+                startBomb = 1;
+                startFlame = 1;
+                startSpeed = 1;
+                if(!bomberman.isAlive()) {
+                    Timer count = new Timer();
+                    count.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            bomberman = new Bomber(xStart,yStart , Sprite.player_right.getFxImage());
+                            count.cancel();
+                        }
+                    }, 500,1);
+                    //sound
+                }
+            }
+        }
+        //Enemies vs Bombs
+        for (Enemy enemy : enemies) {
+            Rectangle r2 = enemy.getHitBox();
+            for (Bomb bomb : bomberman.getBombs()) {
+                Rectangle r3 = bomb.getHitBox();
+                //!bomb.isAllowedToPassThrough(enemy)
+                if (r2.intersects(r3)) {
+                    enemy.stay();
+                    break;
+                }
+            }
+        }
+        //Enemies vs StillObjects
+        for (Enemy enemy : enemies) {
+            Rectangle r2 = enemy.getHitBox();
+            for (Entity stillObject : stillObjects) {
+                Rectangle r3 = stillObject.getHitBox();
+                if (r2.intersects(r3)) {
+                    if (enemy.getLayer() >= stillObject.getLayer()) {
+                        enemy.move();
+                    } else {
+                        enemy.stay();
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -146,7 +214,8 @@ public class BombermanGame extends Application  {
      *
      */
     public void checkCollisionFlame() {
-        for (Flame flame : flameList) {
+        //flame vs stillobjects
+        for (Flame flame : flame) {
             Rectangle r1 = flame.getHitBox();
             for (Entity stillObject : stillObjects) {
                 Rectangle r2 = stillObject.getHitBox();
@@ -155,9 +224,17 @@ public class BombermanGame extends Application  {
                     stillObject.setAlive(false);
                 }
             }
-            //chua co check va cham voi enemy
+            //flame vs enemies
+            for (Enemy enemy : enemies) {
+                Rectangle r2 = enemy.getHitBox();
+                if (r1.intersects(r2)) {
+                    enemy.setAlive(false);
+                }
+            }
+            //flame vs bomberman
             Rectangle r2 = bomberman.getHitBox();
             if (r1.intersects(r2)) {
+                bomberman.stay();
                 bomberman.setAlive(false);
                 startBomb = 1;
                 startFlame = 1;

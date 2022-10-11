@@ -16,7 +16,7 @@ public abstract class Entity {
     //Tọa độ X tính từ góc trái trên trong Canvas
     protected int xx = 1;
     protected int x;
-
+    protected int layer;
     //Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
 
@@ -34,12 +34,35 @@ public abstract class Entity {
         this.y = y;
     }
 
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }
 
     public abstract void update();
 
+    public int getLayer() {
+        return layer;
+    }
+
+    public void setLayer(int layer) {
+        this.layer = layer;
+    }
     public boolean isAlive() {
         return alive;
     }

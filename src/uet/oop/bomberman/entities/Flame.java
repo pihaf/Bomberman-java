@@ -46,7 +46,7 @@ public class Flame extends Entity implements CollisionTypeCheck{
             time ++;
             setFlameImg();
         } else {
-            BombermanGame.flameList.remove(this);
+            BombermanGame.flame.remove(this);
         }
     }
 
@@ -60,7 +60,7 @@ public class Flame extends Entity implements CollisionTypeCheck{
     }
 
     private void create_explosion(){
-        BombermanGame.flameList.add(new Flame(x, y, Sprite.bomb_exploded.getFxImage(),0));
+        BombermanGame.flame.add(new Flame(x, y, Sprite.bomb_exploded.getFxImage(),0));
         //BombermanGame.explosionList.add(new explosion(x, y, Sprite.bo.getFxImage(),4));
         for(int i = 0; i < right; i++){
             Flame e = new Flame(x + size*(i + 1), y);
@@ -71,7 +71,7 @@ public class Flame extends Entity implements CollisionTypeCheck{
                 e.img = Sprite.explosion_horizontal.getFxImage();
                 e.direction = 1;
             }
-            BombermanGame.flameList.add(e);
+            BombermanGame.flame.add(e);
         }
 
         for(int i = 0; i < left; i++){
@@ -83,7 +83,7 @@ public class Flame extends Entity implements CollisionTypeCheck{
                 e.img = Sprite.explosion_horizontal.getFxImage();
                 e.direction = 1;
             }
-            BombermanGame.flameList.add(e);
+            BombermanGame.flame.add(e);
         }
 
         for(int i = 0; i < top; i++){
@@ -95,7 +95,7 @@ public class Flame extends Entity implements CollisionTypeCheck{
                 e.img = Sprite.explosion_vertical.getFxImage();
                 e.direction = 4;
             }
-            BombermanGame.flameList.add(e);
+            BombermanGame.flame.add(e);
         }
 
         for(int i = 0; i < down; i++){
@@ -107,7 +107,7 @@ public class Flame extends Entity implements CollisionTypeCheck{
                 e.img = Sprite.explosion_vertical.getFxImage();
                 e.direction = 4;
             }
-            BombermanGame.flameList.add(e);
+            BombermanGame.flame.add(e);
         }
     }
     private void Right() {
