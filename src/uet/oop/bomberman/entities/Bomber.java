@@ -24,7 +24,7 @@ public class Bomber extends AnimatedEntity {
         super( x, y, img);
         setLayer(1);
         setSpeed(2);
-        bombNum = 0;
+        bombNum = 1;
         setRadius(1);
     }
 
@@ -49,13 +49,13 @@ public class Bomber extends AnimatedEntity {
             goUp();
         }
         if(isBomb) {
-            bombNum++;
             placeBomb();
         }
         for (int i = 0; i < bombs.size(); i++) {
             Bomb bomb = bombs.get(i);
             if (!bomb.isAlive()) {
                 bombs.remove(bomb);
+                bombNum++;
             }
         }
         //
@@ -93,7 +93,7 @@ public class Bomber extends AnimatedEntity {
                 img = Sprite.player_down.getFxImage();
             }
             if (direction == KeyCode.SPACE) {
-                isBomb= false;
+                isBomb = false;
             }
             direction = null;
         }
@@ -131,12 +131,18 @@ public class Bomber extends AnimatedEntity {
     public ArrayList<Bomb> getBombs() {
         return bombs;
     }
-
+@Override
+public Rectangle getHitBox() {
+    return new Rectangle(desX, desY, Sprite.SCALED_SIZE-15 , Sprite.SCALED_SIZE);
+}
     public void die() {
-        if(timeAfterDie <= 45) {
+        direction = null;
+        stay();
+        if(timeAfterDie <= 30) {
             img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2,
                     Sprite.player_dead3, timeAfterDie, 20).getFxImage();
         }
+
     }
 }
 
