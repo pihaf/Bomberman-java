@@ -43,7 +43,7 @@ public class BombermanGame extends Application  {
     public int startBomb = 1;
     public int startSpeed = 2;
     public int startFlame = 1;
-    private Bomber bomberman = new Bomber(1 , 1, Sprite.player_right.getFxImage());
+    public static Bomber bomberman = new Bomber(1 , 1, Sprite.player_right.getFxImage());
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -112,7 +112,7 @@ public class BombermanGame extends Application  {
                         enemies.add(new Doll(i, j, Sprite.doll_left1.getFxImage()));
                     }
                     if (i == 7 && j == 7) {
-                        enemies.add(new Oneal(i, j, Sprite.oneal_left1.getFxImage()));
+                        //enemies.add(new Oneal(i, j, Sprite.oneal_left1.getFxImage()));
                     }
                 }
                 stillObjects.add(object);
