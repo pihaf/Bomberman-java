@@ -284,8 +284,16 @@ public class BombermanGame extends Application  {
         Rectangle bomber = bomberman.getHitBox();
         for (Entity stillObject : stillObjects) {
             Rectangle r = stillObject.getHitBox();
-            if ((stillObject instanceof Wall || stillObject instanceof Brick) && bomber.intersects(r)) {
-                bomberman.stay();
+            if (bomber.intersects(r)) {
+                if (stillObject instanceof Wall || stillObject instanceof Brick) {
+                    bomberman.stay();
+                } else if (stillObject instanceof Portal) {
+                    if (enemies.size() == 0) {
+                        System.exit(0); //remove later
+                        //load(level++);
+                        //sound
+                    }
+                }
             }
         }
 
@@ -331,7 +339,7 @@ public class BombermanGame extends Application  {
             for (Entity stillObject : stillObjects) {
                 Rectangle r3 = stillObject.getHitBox();
                 if (r2.intersects(r3)) {
-                    if (stillObject instanceof Wall|| stillObject instanceof Brick) {
+                    if (stillObject instanceof Wall || stillObject instanceof Brick) {
                         enemy.stay();
                     } else {
                         enemy.move();
