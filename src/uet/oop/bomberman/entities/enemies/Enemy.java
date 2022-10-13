@@ -12,6 +12,7 @@ public abstract class Enemy extends AnimatedEntity {
         startY = yUnit;
     }
 
+
     public abstract void generateDirection();
     public abstract void restartEnemy();
 }

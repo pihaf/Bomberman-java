@@ -6,10 +6,10 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
-public class Balloom extends Enemy {
+public class Balloon extends Enemy {
     private int direction;
 
-    public Balloom(int xUnit, int yUnit, Image img) {
+    public Balloon(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         setSpeed(1);
         setLayer(1);

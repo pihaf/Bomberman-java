@@ -17,7 +17,7 @@ public class Oneal extends Enemy {
         super(xUnit, yUnit, img);
         //this.bomber = bomber;
         setLayer(1);
-        setSpeed(2);
+        setSpeed(1);
         generateDirection();
     }
 
@@ -87,6 +87,7 @@ public class Oneal extends Enemy {
         //this.x = startX * Sprite.SCALED_SIZE;
         //this.y = startY * Sprite.SCALED_SIZE;
     }
+
 }
 
 
