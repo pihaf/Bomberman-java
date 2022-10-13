@@ -69,10 +69,12 @@ public class BombermanGame extends Application  {
         //menu scene test
         Scene menu;
         Label label = new Label("Menu");
-        Button b = new Button("Start");
-        b.setOnAction(e -> stage.setScene(scene));
+        Button b1 = new Button("Start");
+        Button b2 = new Button("Exit");
+        b1.setOnAction(e -> stage.setScene(scene));
+        b2.setOnAction(e -> System.exit(0));
         VBox layout1 = new VBox(20);
-        layout1.getChildren().addAll(label, b);
+        layout1.getChildren().addAll(label, b1, b2);
         menu = new Scene(layout1, Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
 
         // Them scene vao stage
