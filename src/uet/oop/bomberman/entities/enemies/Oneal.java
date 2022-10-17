@@ -100,6 +100,7 @@ public class Oneal extends Enemy {
         this.desX = startX * Sprite.SCALED_SIZE;
         this.desY = startY * Sprite.SCALED_SIZE;
     }
+
 }
 
 

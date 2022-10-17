@@ -49,7 +49,7 @@ public void setSpeed(int speed) {
     }
 
     public Rectangle getHitBox() {
-        return new Rectangle(desX, desY, Sprite.SCALED_SIZE -10 , Sprite.SCALED_SIZE-10);
+        return new Rectangle(desX, desY, Sprite.SCALED_SIZE-15  , Sprite.SCALED_SIZE);
     }
 
     protected void animate() {

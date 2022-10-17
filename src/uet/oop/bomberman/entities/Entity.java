@@ -71,6 +71,6 @@ public abstract class Entity {
     }
 
     public Rectangle getHitBox() {
-        return new Rectangle(x, y, Sprite.SCALED_SIZE-10, Sprite.SCALED_SIZE);
+        return new Rectangle(x, y, Sprite.SCALED_SIZE-15, Sprite.SCALED_SIZE);
     }
 }
