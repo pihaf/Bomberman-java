@@ -15,6 +15,9 @@ import uet.oop.bomberman.entities.enemies.Balloom;
 import uet.oop.bomberman.entities.enemies.Doll;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.enemies.Oneal;
+import uet.oop.bomberman.entities.item.BombItem;
+import uet.oop.bomberman.entities.item.FlameItem;
+import uet.oop.bomberman.entities.item.SpeedItem;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.control.Button;
 
@@ -27,6 +30,7 @@ import java.util.TimerTask;
 import javafx.scene.layout.FlowPane;
 public class BombermanGame extends Application  {
     public static final int WIDTH = 20;
+    public static int liveRemain = 2 ;
 
     public static final int HEIGHT = 15;
     private int xStart = 1;
@@ -96,14 +100,16 @@ public class BombermanGame extends Application  {
     public void createMap() {
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
-                Entity object;
-                Entity brick = null;
+                //Entity object;
+                //Entity brick = null;
+                //Entity item = null;
                 if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                    object = new Wall(i, j, Sprite.wall.getFxImage());
+                    stillObjects.add(new Wall(i, j, Sprite.wall.getFxImage()));
                 } else {
-                    object = new Grass(i, j, Sprite.grass.getFxImage());
+                    stillObjects.add(new Grass(i, j, Sprite.grass.getFxImage()));
                     if (i % 2 == 0 && j % 2 == 0) {
-                        brick = new Brick(i, j, Sprite.brick.getFxImage());
+                        stillObjects.add(new BombItem(i,j,Sprite.powerup_bombs.getFxImage()));
+                        stillObjects.add(new Brick(i, j, Sprite.brick.getFxImage()));
                     }
                     if (i == 9 && j == 9) {
                         enemies.add(new Balloom(i, j, Sprite.balloom_left1.getFxImage()));
@@ -112,11 +118,11 @@ public class BombermanGame extends Application  {
                         enemies.add(new Doll(i, j, Sprite.doll_left1.getFxImage()));
                     }
                     if (i == 7 && j == 7) {
-                        //enemies.add(new Oneal(i, j, Sprite.oneal_left1.getFxImage()));
+                         //enemies.add(new Oneal(i, j, Sprite.oneal_left1.getFxImage()));
                     }
                 }
-                stillObjects.add(object);
-                if (brick != null) stillObjects.add(brick);
+                //stillObjects.add(object);
+
             }
         }
     }
@@ -130,6 +136,7 @@ public class BombermanGame extends Application  {
         }
         for (int i = 0; i < enemies.size(); i ++) {
             enemies.get(i).update();
+            enemies.get(i).move();
         }
         bomberman.update();
         ArrayList<Bomb> bombs = bomberman.getBombs();
@@ -149,7 +156,6 @@ public class BombermanGame extends Application  {
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
-        // cai nay cung chua xu ly duoc
         ArrayList<Bomb> bombs = bomberman.getBombs();
         for (Bomb bomb : bombs) {
             bomb.render(gc);
@@ -180,11 +186,32 @@ public class BombermanGame extends Application  {
                     count.schedule(new TimerTask() {
                         @Override
                         public void run() {
+                            entities.remove(bomberman);
                             bomberman = new Bomber(xStart,yStart , Sprite.player_right.getFxImage());
+                            entities.add(bomberman);
                             count.cancel();
                         }
                     }, 500,1);
+                    break;
                     //sound
+                }
+            }
+        }
+        // Bomber vs Item
+        for (int i = 0 ; i < stillObjects.size(); i++) {
+            Rectangle itemm = stillObjects.get(i).getHitBox();
+            if(itemm.intersects(bomber)) {
+                if(stillObjects.get(i) instanceof SpeedItem) {
+                    bomberman.setSpeed(3);
+                    stillObjects.remove(stillObjects.get(i));
+                }
+                if(stillObjects.get(i) instanceof FlameItem) {
+                    bomberman.setRadius(5);
+                    stillObjects.remove(stillObjects.get(i));
+                }
+                if(stillObjects.get(i) instanceof BombItem) {
+                    bomberman.setBombNum(2);
+                    stillObjects.remove(stillObjects.get(i));
                 }
             }
         }
@@ -196,7 +223,7 @@ public class BombermanGame extends Application  {
                 //!bomb.isAllowedToPassThrough(enemy)
                 if (r2.intersects(r3)) {
                     enemy.stay();
-                    break;
+
                 }
             }
         }
@@ -206,12 +233,10 @@ public class BombermanGame extends Application  {
             for (Entity stillObject : stillObjects) {
                 Rectangle r3 = stillObject.getHitBox();
                 if (r2.intersects(r3)) {
-                    if (enemy.getLayer() >= stillObject.getLayer()) {
-                        enemy.move();
-                    } else {
+                    if (stillObject instanceof Wall || stillObject instanceof Brick) {
                         enemy.stay();
                     }
-                    break;
+
                 }
             }
         }
@@ -248,7 +273,7 @@ public class BombermanGame extends Application  {
                 startFlame = 1;
                 startSpeed = 1;
             }
-                if (!bomberman.isAlive()) {
+                if (!bomberman.isAlive()&&liveRemain>0) {
                     Timer count = new Timer();
                     count.schedule(new TimerTask() {
                         @Override
@@ -257,12 +282,14 @@ public class BombermanGame extends Application  {
                             bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
                             entities.add(bomberman);
                             count.cancel();
+                            liveRemain--;
 
                         }
 
                     }
                     , 500, 1);
-                    break;//dead sound
+                    break;
+                    //dead sound
                 }
             }
         }

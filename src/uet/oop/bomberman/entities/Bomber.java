@@ -14,7 +14,16 @@ import java.util.ArrayList;
 
 
 public class Bomber extends AnimatedEntity {
-    int bombNum ;
+    private int bombNum ;
+
+    public int getBombNum() {
+        return bombNum;
+    }
+
+    public void setBombNum(int bombNum) {
+        this.bombNum = bombNum;
+    }
+
     private boolean isBomb = false;
     private ArrayList<Bomb> bombs = new ArrayList<>();
     private int radius;
@@ -92,10 +101,10 @@ public class Bomber extends AnimatedEntity {
             if (direction == KeyCode.DOWN) {
                 img = Sprite.player_down.getFxImage();
             }
-            if (direction == KeyCode.SPACE) {
-                isBomb = false;
-            }
             direction = null;
+        }
+        if (keyCode == KeyCode.SPACE) {
+            isBomb = false;
         }
     }
     public void goLeft() {
@@ -124,7 +133,7 @@ public class Bomber extends AnimatedEntity {
             for (Bomb bomb : bombs) {
                 if (xB * Sprite.SCALED_SIZE == bomb.x && yB * Sprite.SCALED_SIZE == bomb.y) return;
             }
-            bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage()));
+            bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage(),this.radius));
             bombNum--;
         }
     }
@@ -133,7 +142,7 @@ public class Bomber extends AnimatedEntity {
     }
 @Override
 public Rectangle getHitBox() {
-    return new Rectangle(desX, desY, Sprite.SCALED_SIZE-15 , Sprite.SCALED_SIZE);
+    return new Rectangle(desX, desY, Sprite.SCALED_SIZE-10 , Sprite.SCALED_SIZE);
 }
     public void die() {
         direction = null;

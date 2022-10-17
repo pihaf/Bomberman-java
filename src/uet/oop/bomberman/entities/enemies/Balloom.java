@@ -14,6 +14,7 @@ public class Balloom extends Enemy {
         setSpeed(1);
         setLayer(1);
         generateDirection();
+        //dung de test direction = 0;
         alive = true;
     }
 
@@ -54,14 +55,42 @@ public class Balloom extends Enemy {
 
     @Override
     public void stay() {
-        super.stay();
         generateDirection();
+        super.stay();
+
     }
 
     @Override
     public void generateDirection() {
+        System.out.println("ballom move" + direction);
         Random random = new Random();
-        direction = random.nextInt(4);
+        if(direction == 0) {
+            int[] a = new int[]{2,3};
+            direction = a[random.nextInt(2)];
+            if(direction == 2) {
+                direction = 1 ;
+                direction = 2 ;
+            }
+            if(direction == 3) {
+                direction = 1 ;
+                direction = 3 ;
+            }
+
+        }
+        else if(direction == 1) {
+            int[] a = new int[]{2,3,0};
+            direction = a[random.nextInt(3)];
+        }
+        else if(direction == 2) {
+            int[] a = new int[]{3,1,0};
+            direction = a[random.nextInt(3)];
+        }
+        else if(direction == 3) {
+            int[] a = new int[]{2,1,0};
+            direction = a[random.nextInt(3)];
+        }
+        System.out.println("ballom move " + direction);
+        //direction = random.nextInt(4);
     }
 
     @Override

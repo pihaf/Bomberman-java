@@ -24,8 +24,6 @@ public class Doll extends Enemy{
         } else if(animated < 30){
             animated ++;
             img = Sprite.doll_dead.getFxImage();
-
-
         }else
             BombermanGame.enemies.remove(this);
     }
@@ -48,8 +46,9 @@ public class Doll extends Enemy{
 
     @Override
     public void generateDirection() {
-        Random random = new Random();
-        direction = random.nextInt(2);
+        System.out.println(direction);
+        if (direction == 0) direction = 1;
+        else if (direction == 1) direction = 0;
     }
 
     @Override
