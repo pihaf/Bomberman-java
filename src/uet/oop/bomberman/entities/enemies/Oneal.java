@@ -10,15 +10,28 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.List;
 
 public class Oneal extends Enemy {
-    private Rectangle onealRadius = new Rectangle(x - 160, y - 160, 160 * 1000000, 160 * 1000000);
+    private int prevBombX = 1;
+    private int prevBombY = 1;
+    private boolean changed = false;
+    private int[][] AStarTemp = new int[BombermanGame.HEIGHT][BombermanGame.WIDTH];
+    private int prevI = 0;
+    AStar as;
+    List<AStar.Node> path ;
+    //private Rectangle onealRadius = new Rectangle(x - 160, y - 160, 160 * 1000000, 160 * 1000000);
     private int direction;
     public Oneal(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         //this.bomber = bomber;
-        setLayer(1);
+        //setLayer(1);
         setSpeed(1);
+        AStarTemp = BombermanGame.map;
+        AStar as = new AStar(AStarTemp, this.x / Sprite.SCALED_SIZE,
+                this.y / Sprite.SCALED_SIZE, true);
+        List<AStar.Node> path = as.findPathTo(BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE,
+                BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE);
         generateDirection();
     }
 
@@ -41,23 +54,14 @@ public class Oneal extends Enemy {
         super.goDown();
         img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, down++, 18).getFxImage();
     }
-
-    @Override
-    public void stay() {
-        super.stay();
-        System.out.println("stay");
-        generateDirection();
-    }
-
-
-
     @Override
     public void update() {
         generateDirection();
         if (direction == 0) goLeft();
-        else if (direction == 1) goRight();
-        else if (direction == 2) goUp();
-        else  if (direction == 3) goDown();
+        if (direction == 1) goRight();
+        if (direction == 2) goUp();
+        if (direction == 3) goDown();
+        if (direction == 4) super.stay();
         if(! BombermanGame.bomberman.isAlive()) {
             restartEnemy();
         }
@@ -66,6 +70,7 @@ public class Oneal extends Enemy {
 
         } else if(animated < 30) {
             super.stay();
+
             animated++;
             img = Sprite.oneal_dead.getFxImage();
         } else {
@@ -75,25 +80,63 @@ public class Oneal extends Enemy {
 
     @Override
     public void generateDirection() {
-        //Rectangle re = BombermanGame.bomberman.getHitBox();
-        Bomber bomber = BombermanGame.bomberman;
-        if (bomber.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE < 0  ) direction = 0;
-        else if (bomber.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE > 0) direction = 1;
-        else if (bomber.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE < 0) direction = 2;
-        else if (bomber.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE > 0) direction = 3;
-        //Rectangle re = BombermanGame.bomberman.getHitBox();
-        //Bomber bomber = BombermanGame.bomberman;
-        //if (onealRadius.intersects(re)) {
-          //if (bomber.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE < 0) direction = 0;
-            //if (bomber.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE > 0) direction = 1;
-            //if (bomber.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE < 0) direction = 2;
-            //if (bomber.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE > 0) direction = 3;
-        //} else {
-         // Random random = new Random();
-          //direction = random.nextInt(4);
-      //}
+        if (!(BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE == prevBombX &&
+                BombermanGame.bomberman.getY() / Sprite.SCALED_SIZE == prevBombY)) {
+            as = new AStar(AStarTemp, this.x / Sprite.SCALED_SIZE,
+                    this.y / Sprite.SCALED_SIZE, true);
+            path = as.findPathTo(BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE,
+                    BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE);
+            prevBombX = BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE;
+            prevBombY = BombermanGame.bomberman.getY() / Sprite.SCALED_SIZE;
+            changed = true;
+            direction();
+        } else {
+            changed = false;
+            direction();
+        }
     }
 
+    public void direction() {
+        double xConverted = (double) Math.round(((double) this.x / Sprite.SCALED_SIZE) * 100) / 100;
+        double yConverted = (double) Math.round(((double) this.y / Sprite.SCALED_SIZE) * 100) / 100;
+        if (BombermanGame.bomberman.isAlive()) {
+            if (changed) {
+                prevI = 0;
+            } else {
+                if (path == null) {
+                    super.stay();
+                    direction = 4;
+                } else if (prevI == path.size()) {
+                    if ((double) BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE - (double) x / Sprite.SCALED_SIZE < 0)
+                        direction = 0;
+                    if ((double) BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE - (double) x / Sprite.SCALED_SIZE > 0)
+                        direction = 1;
+                    if ((double) BombermanGame.bomberman.getY() / Sprite.SCALED_SIZE - (double) y / Sprite.SCALED_SIZE < 0)
+                        direction = 2;
+                    if ((double) BombermanGame.bomberman.getY() / Sprite.SCALED_SIZE - (double) y / Sprite.SCALED_SIZE > 0)
+                        direction = 3;
+                    // lỗi không đi được trọn vẹn vào ô kill nhân vật
+                } else if (path != null) {
+                    double xPath = (double) Math.round((double) path.get(prevI).x * 100) / 100;
+                    double yPath = (double) Math.round((double) path.get(prevI).y * 100) / 100;
+                    if (xPath - xConverted == 0 && yPath - yConverted > 0) {
+                        direction = 3;
+                    } else if (xPath - xConverted == 0 && yPath - yConverted < 0) {
+                        direction = 2;
+                    } else if (xPath - xConverted < 0 && yPath - yConverted == 0) {
+                        direction = 0;
+                    } else if (xPath - xConverted > 0 && yPath - yConverted == 0) {
+                        direction = 1;
+                    } else if (xPath - xConverted == 0 && yPath - yConverted == 0) {
+                        direction = 4;
+                        prevI++;
+                    }
+                }
+            }
+        } else {
+            restartEnemy();
+        }
+    }
     @Override
     public void restartEnemy() {
         super.stay();

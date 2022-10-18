@@ -12,8 +12,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import static uet.oop.bomberman.entities.Music.DEAD;
+import static uet.oop.bomberman.entities.Music.PLACE_BOMB;
+
 
 public class Bomber extends AnimatedEntity {
+    private int timeCounter = 0;
     private int bombNum ;
 
     public int getBombNum() {
@@ -34,7 +38,7 @@ public class Bomber extends AnimatedEntity {
         setLayer(1);
         setSpeed(2);
         bombNum = 1;
-        setRadius(1);
+        setRadius(5);
     }
 
     public void setRadius(int radius) {
@@ -134,6 +138,7 @@ public class Bomber extends AnimatedEntity {
                 if (xB * Sprite.SCALED_SIZE == bomb.x && yB * Sprite.SCALED_SIZE == bomb.y) return;
             }
             bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage(),this.radius));
+            new Music(PLACE_BOMB).play();
             bombNum--;
         }
     }
@@ -145,8 +150,12 @@ public Rectangle getHitBox() {
     return new Rectangle(desX, desY, Sprite.SCALED_SIZE-10 , Sprite.SCALED_SIZE);
 }
     public void die() {
+        timeCounter++;
         direction = null;
         stay();
+        if(timeCounter == 1) {
+            new Music(DEAD).play();
+        }
         if(timeAfterDie <= 30) {
             img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2,
                     Sprite.player_dead3, timeAfterDie, 20).getFxImage();
