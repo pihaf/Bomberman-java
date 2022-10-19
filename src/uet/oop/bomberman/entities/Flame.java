@@ -134,7 +134,6 @@ public class Flame extends Entity implements CollisionTypeCheck{
                 left = i + 1;
                 return;
             }
-            System.out.println(collisionType(ex_left) instanceof Grass);
             left = i + 1;
         }
     }
