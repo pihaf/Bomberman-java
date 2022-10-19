@@ -130,10 +130,11 @@ public class Flame extends Entity implements CollisionTypeCheck{
             if (collisionType(ex_left) instanceof Wall) {
                 left = i;
                 return;
-            } else if(collisionType(ex_left) instanceof Brick) {
+            } else if(collisionType(ex_left) instanceof Brick ) {
                 left = i + 1;
                 return;
             }
+            System.out.println(collisionType(ex_left) instanceof Grass);
             left = i + 1;
         }
     }
@@ -148,18 +149,18 @@ public class Flame extends Entity implements CollisionTypeCheck{
                 top = i + 1;
                 return;
             }
-            top = i + 1;
+            top = i ;
         }
     }
 
     private void Down() {
         for (int i = 0; i < radius; i++) {
-            Rectangle ex_down = new Rectangle(x, y + size*(i + 1), size, size);
+            Rectangle ex_down = new Rectangle(x, y + size*(i+1), size, size);
             if (collisionType(ex_down) instanceof Wall) {
                 down = i;
                 return;
-            } else if(collisionType(ex_down) instanceof Brick) {
-                down = i + 1;
+            } else if(collisionType(ex_down) instanceof Brick ) {
+                down = i+ 1;
                 return;
             }
             down = i + 1;
@@ -168,11 +169,14 @@ public class Flame extends Entity implements CollisionTypeCheck{
 
     @Override
     public Object collisionType(Rectangle r) {
-        for(Entity e : BombermanGame.stillObjects){
-            Rectangle r2 = e.getHitBox();
-            if(r.intersects(r2)){
-                return e;
+        for (Entity e : BombermanGame.stillObjects) {
+            if (e instanceof Brick || e instanceof Wall) {
+                Rectangle r2 = e.getHitBox();
+                if (r.intersects(r2)) {
+                    return e;
+                }
             }
+
         }
         return r;
     }

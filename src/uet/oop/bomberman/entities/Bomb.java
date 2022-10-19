@@ -39,10 +39,10 @@ public class Bomb extends Entity {
     }
 
     public void explode() {
+        new Music(EXPLOSION).play();
         Flame e = new Flame(x, y);
         e.setRadius(radius);
         e.render_explosion();
-        new Music(EXPLOSION).play();
         alive = false;
     }
 }
