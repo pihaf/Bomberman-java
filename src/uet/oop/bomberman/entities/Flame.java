@@ -148,7 +148,7 @@ public class Flame extends Entity implements CollisionTypeCheck{
                 top = i + 1;
                 return;
             }
-            top = i ;
+            top = i + 1;
         }
     }
 
