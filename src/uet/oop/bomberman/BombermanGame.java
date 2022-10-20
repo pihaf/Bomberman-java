@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
-import uet.oop.bomberman.entities.Music;
+import uet.oop.bomberman.audio.Music;
 import uet.oop.bomberman.entities.enemies.Balloon;
 import uet.oop.bomberman.entities.enemies.Doll;
 import uet.oop.bomberman.entities.enemies.Enemy;
@@ -29,8 +29,7 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.*;
 
-import static uet.oop.bomberman.entities.Music.BACKGROUND_MUSIC;
-import static uet.oop.bomberman.entities.Music.DEAD;
+import static uet.oop.bomberman.audio.Music.*;
 
 public class BombermanGame extends Application  {
     public static int WIDTH = 31;
@@ -387,12 +386,12 @@ public class BombermanGame extends Application  {
                 Rectangle r2 = enemy.getHitBox();
                 if (r1.intersects(r2)) {
                     enemy.setAlive(false);
+                    new Music(ENEMY_DEAD).play();
                 }
             }
             //flame vs bomberman
             Rectangle r2 = bomberman.getHitBox();
             if (r1.intersects(r2)) {
-
                 bomberman.setAlive(false);
                 startBomb = 1;
                 startFlame = 1;

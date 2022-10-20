@@ -1,13 +1,11 @@
-package uet.oop.bomberman.entities;
-import uet.oop.bomberman.BombermanGame;
+package uet.oop.bomberman.audio;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static uet.oop.bomberman.entities.Music.Loopable.LOOP;
-import static uet.oop.bomberman.entities.Music.Loopable.NONELOOP;
+import static uet.oop.bomberman.audio.Music.Loopable.LOOP;
 
 public class Music implements Runnable {
 
