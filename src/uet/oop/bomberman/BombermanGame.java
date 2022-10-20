@@ -297,16 +297,19 @@ public class BombermanGame extends Application  {
             Rectangle item = stillObjects.get(i).getHitBox();
                 if(item.intersects(bomber)) {
                     if(stillObjects.get(i) instanceof  FlameItem) {
-                        bomberman.setRadius(5);
+                        new Music(POWER_UP).play();
+                        bomberman.setRadius(startFlame+=2);
                         stillObjects.remove(stillObjects.get(i));
                     }
                     if(stillObjects.get(i) instanceof BombItem) {
-                        bomberman.setBombNum(4);
+                        new Music(POWER_UP).play();
+                        bomberman.setBombNum(startBomb+=2);
                         stillObjects.remove(stillObjects.get(i));
 
                     }
                     if(stillObjects.get(i) instanceof  SpeedItem) {
-                        bomberman.setSpeed(5);
+                        new Music(POWER_UP).play();
+                        bomberman.setSpeed(startSpeed+=2);
                         stillObjects.remove(stillObjects.get(i));
                     }
                 }
