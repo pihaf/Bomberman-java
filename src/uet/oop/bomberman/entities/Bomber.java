@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.audio.Music;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -133,7 +134,7 @@ public class Bomber extends AnimatedEntity {
                 if (xB * Sprite.SCALED_SIZE == bomb.x && yB * Sprite.SCALED_SIZE == bomb.y) return;
             }
             bombs.add(new Bomb(xB, yB, Sprite.bomb.getFxImage(),this.radius));
-            new Music(PLACE_BOMB).play();
+            if (!BombermanGame.muted.isMutedSound()) new Music(PLACE_BOMB).play();
             bombNum--;
         }
     }
@@ -149,7 +150,7 @@ public Rectangle getHitBox() {
         direction = null;
         stay();
         if(timeCounter == 1) {
-            new Music(DEAD).play();
+            if (!BombermanGame.muted.isMutedSound())new Music(DEAD).play();
         }
         if(timeAfterDie <= 30) {
             img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2,

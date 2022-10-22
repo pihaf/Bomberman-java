@@ -5,10 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7aeba08b-cbb4-4017-810a-cfdeb6e02045" name="Changes" comment="cuối cùng thì con ballon đã ko di chuyển như bị động kinh, btw đã có music, còn mỗi xử lý flame và tìm đường">
+      <change afterPath="$PROJECT_DIR$/res/audio/mc_click.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/audio/sweden.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/fxml/LoseScene.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/fxml/Menu.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/fxml/Settings.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/fxml/WinScene.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/levels/Level2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/levels/Level3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/levels/Level4.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/levels/Level5.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/lose.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/menuScene1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/menusc2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/win.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/EndingSceneController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/LevelController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/MenuController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/Muted.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/SettingsSceneController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/levels/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/Level1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/BombermanGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/BombermanGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Flame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Flame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/audio/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/audio/Music.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Bomber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/levels/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/levels/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomb.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomb.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomber.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/Bomber.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +47,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -54,10 +82,20 @@
   }
 }</component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\DEll\Desktop\Things\Code\java\bomberman\res" />
+      <recent name="C:\Users\DEll\Desktop\Things\Code\java\bomberman\res\textures" />
       <recent name="C:\Users\DEll\Desktop\Things\Code\java\bomberman\res\audio" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\DEll\Desktop\Things\Code\java\bomberman\res" />
+      <recent name="C:\Users\DEll\Desktop\Things\Code\java\bomberman\lose" />
+      <recent name="C:\Users\DEll\Desktop\Things\Code\java\bomberman\res\fxml" />
+      <recent name="C:\Users\DEll\Desktop\Things\Code\java\bomberman\src\uet\oop\bomberman" />
+      <recent name="C:\Users\DEll\Desktop\Things\Code\java\bomberman\src\uet.oop.bomberman" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="uet.oop.bomberman" />
       <recent name="uet.oop.bomberman.audio" />
     </key>
   </component>
@@ -162,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666275793187</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="cuối cùng thì con ballon đã ko di chuyển như bị động kinh, btw đã có music, còn mỗi xử lý flame và tìm đường">
+      <created>1666276811380</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1666276811380</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

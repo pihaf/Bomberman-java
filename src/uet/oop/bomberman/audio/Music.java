@@ -16,6 +16,8 @@ public class Music implements Runnable {
     public static final String EXPLOSION = "explosion";
     public static final String DEAD = "dead";
     public static final String ENEMY_DEAD = "dead2";
+    public static final String CLICKED = "mc_click";
+    public static final String MENU_BACKGROUND = "sweden";
 
     private static boolean _muted = false;
 
@@ -87,9 +89,11 @@ public class Music implements Runnable {
                 break;
         }
     }
-
-
     public static boolean isMuted() {
         return _muted;
+    }
+
+    public void set_muted(boolean _muted) {
+        Music._muted = _muted;
     }
 }
