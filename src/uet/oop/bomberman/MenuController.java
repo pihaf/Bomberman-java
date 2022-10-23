@@ -129,6 +129,7 @@ public class MenuController implements Initializable {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(BombermanGame.lc.getLvScene());
         stage.show();
+        BombermanGame.startGame(stage, BombermanGame.lc.getLvScene());
     }
     @FXML
     public void settingOptionClickedHandle(ActionEvent event) throws IOException {

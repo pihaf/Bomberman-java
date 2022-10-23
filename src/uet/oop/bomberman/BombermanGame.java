@@ -1,7 +1,5 @@
 package uet.oop.bomberman;
 
-//test for menu
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -46,12 +44,12 @@ public class BombermanGame extends Application  {
     public void setMusic(Music _music) {
         music = _music;
     }
-    private int xStart = 0;
-    private int yStart = 0;
+    private static int xStart = 0;
+    private static int yStart = 0;
     public static int level = 1;
-    private GraphicsContext gc;
-    private Canvas canvas;
-    private Scanner scanner;
+    private static GraphicsContext gc;
+    private static Canvas canvas;
+    private static Scanner scanner;
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
     public static final List<Enemy> enemies = new ArrayList<>();
@@ -59,14 +57,14 @@ public class BombermanGame extends Application  {
     public static int[][] map = new int[HEIGHT][WIDTH];
     //start flame radius, neu co powerups thi tang len
     public int flameRadius = 1;
-    public int startBomb = 1;
-    public int startSpeed = 2;
-    public int startFlame = 1;
+    public static int startBomb = 1;
+    public static int startSpeed = 2;
+    public static int startFlame = 1;
     public static Bomber bomberman = new Bomber(1 , 1, Sprite.player_right.getFxImage());
     public static LevelController lc = new LevelController();
-    public boolean finishedLevel = false;
-    public final int MAX_LEVEL = 5;
-    public int lives = 5;
+    public static boolean finishedLevel = false;
+    public static final int MAX_LEVEL = 5;
+    public static int lives = 5;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -88,10 +86,9 @@ public class BombermanGame extends Application  {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        startGame(stage, lvscene);
     }
 
-    public void startGame(Stage stage, Scene lvscene) {
+    public static void startGame(Stage stage, Scene lvscene) {
         ArrayList<Bomb> bombs = bomberman.getBombs();
         entities.add(bomberman);
         AnimationTimer timer = new AnimationTimer() {
@@ -104,10 +101,17 @@ public class BombermanGame extends Application  {
                     update();
                     if (finishedLevel) {
                         if (level <= MAX_LEVEL) {
+                            stop();
+                            if (!muted.isMutedSound()) {
+                                new Music(LEVEL_COMPLETE).play();
+                            }
                             Scene lvscene = createSceneLevel();
                             lc.setLvScene(lvscene);
                             ArrayList<Bomb> bombs = bomberman.getBombs();
                             load(level);
+                            if (!muted.isMutedMusic()) {
+                                music.loop();
+                            }
                             stage.setScene(lvscene);
                             stage.show();
                             finishedLevel = false;
@@ -115,6 +119,11 @@ public class BombermanGame extends Application  {
                         } else {
                             lc.setWon(true);
                             if (lc.isWon()) {
+                                stop();
+                                music.stop();
+                                if (!muted.isMutedSound()) {
+                                    new Music(CHEERING).play();
+                                }
                                 Parent root = null;
                                 try {
                                     root = FXMLLoader.load(getClass().getResource("/fxml/WinScene.fxml"));
@@ -124,18 +133,29 @@ public class BombermanGame extends Application  {
                                 Scene scene = new Scene(root);
                                 stage.setScene(scene);
                                 stage.show();
-                            } else {
-                                Parent root = null;
-                                try {
-                                    root = FXMLLoader.load(getClass().getResource("/fxml/LoseScene.fxml"));
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                Scene scene = new Scene(root);
-                                stage.setScene(scene);
-                                stage.show();
+                                lc.setWon(false);
+                                level = 1;
+                                lives = 5;
                             }
                         }
+                    } else if (lc.isLost()) {
+                        stop();
+                        music.stop();
+                        Parent root = null;
+                        if (!muted.isMutedSound()) {
+                            new Music(GAME_LOST).play();
+                        }
+                        try {
+                            root = FXMLLoader.load(getClass().getResource("/fxml/LoseScene.fxml"));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Scene scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+                        lc.setLost(false);
+                        level = 1;
+                        lives = 5;
                     }
                     prevTime = now;
                 }
@@ -148,7 +168,7 @@ public class BombermanGame extends Application  {
         lvscene.setOnKeyReleased(event -> bomberman.handleKeyReleasedEvent(event.getCode()));
     }
 
-    public Scene createSceneLevel() {
+    public static Scene createSceneLevel() {
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -160,7 +180,7 @@ public class BombermanGame extends Application  {
         return scene;
     }
 
-    public void load(int _level) {
+    public static void load(int _level) {
         try {
             scanner = new Scanner(new FileReader("res/levels/level" + _level + ".txt"));
         } catch (FileNotFoundException e) {
@@ -179,7 +199,7 @@ public class BombermanGame extends Application  {
         createMap();
     }
 
-    public void createMap() {
+    public static void createMap() {
         createMatrixCoordinates();
         for (int i = 0; i < HEIGHT; i++) {
             String r = scanner.nextLine();
@@ -196,6 +216,10 @@ public class BombermanGame extends Application  {
                     if (r.charAt(j) == 'x') {
                         stillObjects.add(new Portal(j, i, Sprite.portal.getFxImage()));
                         stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                        map[i][j] = -1;
+                    }
+                    if (r.charAt(j) == 'y') {
+                        stillObjects.add(new Portal(j, i, Sprite.portal.getFxImage()));
                         map[i][j] = -1;
                     }
                     if (r.charAt(j) == '1') {
@@ -215,7 +239,7 @@ public class BombermanGame extends Application  {
                         //enemies.add(new Kondoria(j, i, Sprite.kondoria_left1.getFxImage()));
                         //map[i][j] = 0;
                     //}
-                    if (r.charAt(j) == '5') {
+                    if (r.charAt(j) == '3') {
                         enemies.add(new Doll(j, i, Sprite.doll_left1.getFxImage()));
                         //map[i][j] = 0;
                     }
@@ -249,7 +273,7 @@ public class BombermanGame extends Application  {
         //stillObjects.sort(new Layer());
     }
 
-    public void createMatrixCoordinates() {
+    public static void createMatrixCoordinates() {
         for(int i = 0; i < HEIGHT; i ++) {
             for(int j = 0; j < WIDTH; j ++) {
                 map[i][j] = 0;
@@ -257,7 +281,7 @@ public class BombermanGame extends Application  {
         }
     }
 
-    public void update() {
+    public static void update() {
         bomberman.move();
         // animation cho cac entity
         entities.forEach(Entity::update);
@@ -281,7 +305,7 @@ public class BombermanGame extends Application  {
         checkCollisionFlame();
     }
 
-    public void render() {
+    public static void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
@@ -294,7 +318,7 @@ public class BombermanGame extends Application  {
         flame.forEach(g -> g.render(gc));
     }
 // handle collision, da xong phan cuc da
-    public void handleCollision() {
+    public static void handleCollision() {
         Rectangle bomber = bomberman.getHitBox();
         for (Entity stillObject : stillObjects) {
             Rectangle r = stillObject.getHitBox();
@@ -337,13 +361,13 @@ public class BombermanGame extends Application  {
             if (bomber.intersects(r2)) {
                 bomberman.stay();
                 bomberman.setAlive(false);
-                lives--;
+                lives = lives - 1;
                 startBomb = 1;
                 startFlame = 1;
-                startSpeed = 1;
+                startSpeed = 2;
                 if(!bomberman.isAlive()) {
                     if (lives == 0) {
-                        lc.setWon(false);
+                        lc.setLost(true);
                     } else {
                         Timer count = new Timer();
                         count.schedule(new TimerTask() {
@@ -393,7 +417,7 @@ public class BombermanGame extends Application  {
      * flame collision.
      *
      */
-    public void checkCollisionFlame() {
+    public static void checkCollisionFlame() {
         //flame vs stillobjects
         for (Flame flame : flame) {
             Rectangle r1 = flame.getHitBox();
@@ -418,14 +442,14 @@ public class BombermanGame extends Application  {
             if (r1.intersects(r2)) {
                 bomberman.stay();
                 bomberman.setAlive(false);
-                lives--;
+                lives = lives - 1;
                 startBomb = 1;
                 startFlame = 1;
-                startSpeed = 1;
+                startSpeed = 2;
             }
                 if (!bomberman.isAlive()) {
                     if (lives == 0) {
-                        lc.setWon(false);
+                        lc.setLost(true);
                     } else {
                         Timer count = new Timer();
                         count.schedule(new TimerTask() {

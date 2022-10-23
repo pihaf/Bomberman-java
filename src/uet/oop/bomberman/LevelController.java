@@ -6,6 +6,15 @@ public class LevelController {
     public Scene lvScene;
     public int level = 1;
     public boolean won = false;
+    public boolean lost = false;
+
+    public boolean isLost() {
+        return lost;
+    }
+
+    public void setLost(boolean lost) {
+        this.lost = lost;
+    }
 
     public boolean isWon() {
         return won;

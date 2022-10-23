@@ -10,15 +10,17 @@ import static uet.oop.bomberman.audio.Music.Loopable.LOOP;
 public class Music implements Runnable {
 
     // Tên file các audio
-    public static final String BACKGROUND_MUSIC = "background_music";
+    public static final String BACKGROUND_MUSIC = "background_musicfinal";
     public static final String PLACE_BOMB = "place_bomb";
     public static final String POWER_UP = "power_up";
     public static final String EXPLOSION = "explosion";
     public static final String DEAD = "dead";
     public static final String ENEMY_DEAD = "dead2";
     public static final String CLICKED = "mc_click";
-    public static final String MENU_BACKGROUND = "sweden";
-
+    public static final String MENU_BACKGROUND = "swedenfinal";
+    public static final String CHEERING = "kidsCheering";
+    public static final String LEVEL_COMPLETE = "mario_coin";
+    public static final String GAME_LOST = "you_lost";
     private static boolean _muted = false;
 
     private Clip clip;
