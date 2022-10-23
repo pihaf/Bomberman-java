@@ -4,30 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7aeba08b-cbb4-4017-810a-cfdeb6e02045" name="Changes" comment="finish something">
-      <change afterPath="$PROJECT_DIR$/res/audio/back_groundfinalfinal.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_10_2022_2_17_CH__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_10_2022_2_17_CH__Changes_.xml" afterDir="false" />
+    <list default="true" id="7aeba08b-cbb4-4017-810a-cfdeb6e02045" name="Changes" comment="còn time nếu muốn add thêm">
+      <change afterPath="$PROJECT_DIR$/res/fxml/ScoreBoard.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/scoreboard/scores.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/ScoreBoardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/audio/background_musicfinal.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fxml/LoseScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/res/fxml/LoseScene.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/levels/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/Level1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/levels/Level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/Level2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/levels/Level4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/Level4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/levels/Level5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/Level5.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/BombermanGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/BombermanGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/EndingSceneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/EndingSceneController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/MenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/audio/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/audio/Music.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/levels/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/levels/Level1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/levels/Level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/levels/Level2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/levels/Level4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/levels/Level4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/levels/Level5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/levels/Level5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemies/Balloon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemies/Balloon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemies/Doll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemies/Doll.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemies/Kondoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemies/Kondoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemies/Minvo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemies/Minvo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemies/Oneal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/enemies/Oneal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/audio/background_musicfinal.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/LoseScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/LoseScene.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/BombermanGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/EndingSceneController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/EndingSceneController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/MenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/MenuController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/audio/Music.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/audio/Music.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/enemies/Balloon.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/enemies/Balloon.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/enemies/Doll.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/enemies/Doll.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/enemies/Oneal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/uet/oop/bomberman/entities/enemies/Oneal.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666525486031</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="còn time nếu muốn add thêm">
+      <created>1666535252034</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1666535252034</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -232,6 +239,7 @@
     <MESSAGE value="maybe" />
     <MESSAGE value="cuối cùng thì con ballon đã ko di chuyển như bị động kinh, btw đã có music, còn mỗi xử lý flame và tìm đường" />
     <MESSAGE value="finish something" />
-    <option name="LAST_COMMIT_MESSAGE" value="finish something" />
+    <MESSAGE value="còn time nếu muốn add thêm" />
+    <option name="LAST_COMMIT_MESSAGE" value="còn time nếu muốn add thêm" />
   </component>
 </project>

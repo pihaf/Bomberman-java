@@ -75,6 +75,7 @@ public class Oneal extends Enemy {
             timeCounter++;
             if(timeCounter == 1) {
                 if (!BombermanGame.muted.isMutedSound())new Music(ENEMY_DEAD).play();
+                BombermanGame.score += 100;
             }
             if (animated < 30) {
                 super.stay();

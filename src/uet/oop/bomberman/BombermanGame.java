@@ -2,16 +2,13 @@ package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -36,7 +33,6 @@ public class BombermanGame extends Application  {
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
     public static Music music = new Music(BACKGROUND_MUSIC);
-    public static Music gameLost = new Music(GAME_LOST);
     public static Music menuMusic = new Music(MENU_BACKGROUND);
     public static Muted muted = new Muted();
     public Music music() {
@@ -52,6 +48,8 @@ public class BombermanGame extends Application  {
     private static GraphicsContext gc;
     private static Canvas canvas;
     private static Scanner scanner;
+    public static List<Text> scores = new ArrayList<>();
+    public static final int MAX_SCORES = 10;
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
     public static final List<Enemy> enemies = new ArrayList<>();
@@ -68,8 +66,18 @@ public class BombermanGame extends Application  {
     public static final int MAX_LEVEL = 5;
     public static int lives = 5;
     public static int score = 0;
+    public static javafx.scene.shape.Rectangle livesRec = createRectangle(1.7 * Sprite.SCALED_SIZE, 0 * Sprite.SCALED_SIZE, 60, 20);
+    public static javafx.scene.shape.Rectangle scoreRec = createRectangle(14.7 * Sprite.SCALED_SIZE, 0 * Sprite.SCALED_SIZE, 70, 20);
     public static Text scoreText = createText(15 * Sprite.SCALED_SIZE, 0.5 * Sprite.SCALED_SIZE, "Score: ");
     public static Text livesText = createText(2 * Sprite.SCALED_SIZE, 0.5 * Sprite.SCALED_SIZE,"Lives: ");
+
+    public static javafx.scene.shape.Rectangle createRectangle(double x, double y, double width, double height) {
+        javafx.scene.shape.Rectangle r = new javafx.scene.shape.Rectangle(x, y, width, height);
+        r.setFill(Color.TRANSPARENT);
+        r.setStroke(Color.BLUE);
+        return r;
+    }
+
     public static Text createText(double x, double y, String s) {
         Text t = new Text(x, y, s);
         t.setFill(Color.BLUE);
@@ -204,7 +212,7 @@ public class BombermanGame extends Application  {
         gc = canvas.getGraphicsContext2D();
         // Tao level container
         Group lv = new Group();
-        lv.getChildren().addAll(canvas, scoreText, livesText);
+        lv.getChildren().addAll(canvas, scoreText, livesText, livesRec, scoreRec);
         // Tao scene
         Scene scene = new Scene(lv);
         return scene;
@@ -465,7 +473,6 @@ public class BombermanGame extends Application  {
                 Rectangle r2 = enemy.getHitBox();
                 if (r1.intersects(r2)) {
                     enemy.setAlive(false);
-                    score += 100;
                 }
             }
             //flame vs bomberman
@@ -473,7 +480,6 @@ public class BombermanGame extends Application  {
             if (r1.intersects(r2)) {
                 bomberman.stay();
                 bomberman.setAlive(false);
-               // lives = lives - 1;
                 startBomb = 1;
                 startFlame = 1;
                 startSpeed = 2;

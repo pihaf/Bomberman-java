@@ -144,11 +144,15 @@ public class MenuController implements Initializable {
         stage.show();
     }
     @FXML
-    public void scoreboardOptionClickedHandle() {
+    public void scoreboardOptionClickedHandle(ActionEvent event) throws IOException {
         if(!BombermanGame.muted.isMutedSound()) {
             new Music(Music.CLICKED).play();
         }
-        System.exit(0);
+        root = FXMLLoader.load(getClass().getResource("/fxml/ScoreBoard.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
