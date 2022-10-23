@@ -151,6 +151,7 @@ public Rectangle getHitBox() {
         stay();
         if(timeCounter == 1) {
             if (!BombermanGame.muted.isMutedSound())new Music(DEAD).play();
+            BombermanGame.lives--;
         }
         if(timeAfterDie <= 30) {
             img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2,

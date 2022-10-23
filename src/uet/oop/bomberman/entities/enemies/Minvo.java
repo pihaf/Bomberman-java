@@ -10,11 +10,11 @@ import java.util.Random;
 import static uet.oop.bomberman.audio.Music.DEAD;
 import static uet.oop.bomberman.audio.Music.ENEMY_DEAD;
 
-public class Doll extends Enemy{
+public class Minvo extends Enemy{
 
     private int direction;
 
-    public Doll(int xUnit, int yUnit, Image img) {
+    public Minvo(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         setSpeed(2);
         generateDirection();
@@ -24,8 +24,8 @@ public class Doll extends Enemy{
     @Override
     public void update() {
         if(isAlive()) {
-            if (direction == 0) goLeft();
-            if (direction == 1) goRight();
+            if (direction == 0) goUp();
+            if (direction == 1) goDown();
         } else {
             timeCounter++;
             if(timeCounter == 1) {
@@ -33,21 +33,21 @@ public class Doll extends Enemy{
             }
             if(animated < 30){
                 animated ++;
-                img = Sprite.doll_dead.getFxImage();
+                img = Sprite.minvo_dead.getFxImage();
             }else {
                 BombermanGame.enemies.remove(this);
             }
         }
     }
 
-    public void goLeft() {
-        super.goLeft();
-        img = Sprite.movingSprite(Sprite.doll_left1, Sprite.doll_left2, Sprite.doll_left3, left++, 18).getFxImage();
+    public void goDown() {
+        super.goDown();
+        img = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2, Sprite.minvo_left3, left++, 18).getFxImage();
     }
 
-    public void goRight() {
-        super.goRight();
-        img = Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2, Sprite.doll_right3, right++, 18).getFxImage();
+    public void goUp() {
+        super.goUp();
+        img = Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2, Sprite.minvo_right3, right++, 18).getFxImage();
     }
 
     @Override

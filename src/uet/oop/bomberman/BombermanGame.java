@@ -14,10 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.audio.Music;
-import uet.oop.bomberman.entities.enemies.Balloon;
-import uet.oop.bomberman.entities.enemies.Doll;
-import uet.oop.bomberman.entities.enemies.Enemy;
-import uet.oop.bomberman.entities.enemies.Oneal;
+import uet.oop.bomberman.entities.enemies.*;
 import uet.oop.bomberman.entities.item.BombItem;
 import uet.oop.bomberman.entities.item.FlameItem;
 import uet.oop.bomberman.entities.item.SpeedItem;
@@ -36,6 +33,8 @@ public class BombermanGame extends Application  {
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
     public static Music music = new Music(Music.BACKGROUND_MUSIC);
+    public static Music gameWin = new Music(CHEERING);
+    public static Music gameLost = new Music(GAME_LOST);
     public static Music menuMusic = new Music(MENU_BACKGROUND);
     public static Muted muted = new Muted();
     public Music music() {
@@ -103,7 +102,7 @@ public class BombermanGame extends Application  {
                         if (level <= MAX_LEVEL) {
                             stop();
                             if (!muted.isMutedSound()) {
-                                new Music(LEVEL_COMPLETE).play();
+                                gameWin.play();
                             }
                             Scene lvscene = createSceneLevel();
                             lc.setLvScene(lvscene);
@@ -136,6 +135,7 @@ public class BombermanGame extends Application  {
                                 lc.setWon(false);
                                 level = 1;
                                 lives = 5;
+                                stop();
                             }
                         }
                     } else if (lc.isLost()) {
@@ -143,7 +143,8 @@ public class BombermanGame extends Application  {
                         music.stop();
                         Parent root = null;
                         if (!muted.isMutedSound()) {
-                            new Music(GAME_LOST).play();
+                           Music gameLost = new Music(GAME_LOST);
+                           gameLost.play();
                         }
                         try {
                             root = FXMLLoader.load(getClass().getResource("/fxml/LoseScene.fxml"));
@@ -156,6 +157,7 @@ public class BombermanGame extends Application  {
                         lc.setLost(false);
                         level = 1;
                         lives = 5;
+                        stop();
                     }
                     prevTime = now;
                 }
@@ -231,15 +233,15 @@ public class BombermanGame extends Application  {
                         enemies.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
                         //map[i][j] = 0;
                     }
-                    //if (r.charAt(j) == '3') {
-                        //enemies.add(new Minvo(j, i, Sprite.minvo_left1.getFxImage()));
-                        //map[i][j] = 0;
-                    //}
-                    //if (r.charAt(j) == '4') {
-                        //enemies.add(new Kondoria(j, i, Sprite.kondoria_left1.getFxImage()));
-                        //map[i][j] = 0;
-                    //}
                     if (r.charAt(j) == '3') {
+                        enemies.add(new Minvo(j, i, Sprite.minvo_left1.getFxImage()));
+                        //map[i][j] = 0;
+                    }
+                        if (r.charAt(j) == '4') {
+                        enemies.add(new Kondoria(j, i, Sprite.kondoria_left1.getFxImage()));
+                        //map[i][j] = 0;
+                    }
+                    if (r.charAt(j) == '5') {
                         enemies.add(new Doll(j, i, Sprite.doll_left1.getFxImage()));
                         //map[i][j] = 0;
                     }
@@ -361,7 +363,7 @@ public class BombermanGame extends Application  {
             if (bomber.intersects(r2)) {
                 bomberman.stay();
                 bomberman.setAlive(false);
-                lives = lives - 1;
+                //lives = lives - 1;
                 startBomb = 1;
                 startFlame = 1;
                 startSpeed = 2;
@@ -376,7 +378,7 @@ public class BombermanGame extends Application  {
                                 entities.remove(bomberman);
                                 bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
                                 entities.add(bomberman);
-                                if (!muted.isMutedSound()) new Music(DEAD).play();
+                                //if (!muted.isMutedSound()) new Music(DEAD).play();
                                 count.cancel();
                             }
                         }, 500,1);
@@ -434,7 +436,7 @@ public class BombermanGame extends Application  {
                 Rectangle r2 = enemy.getHitBox();
                 if (r1.intersects(r2)) {
                     enemy.setAlive(false);
-                    if (!muted.isMutedSound()) new Music(ENEMY_DEAD).play();
+                    //if (!muted.isMutedSound()) new Music(ENEMY_DEAD).play();
                 }
             }
             //flame vs bomberman
@@ -442,7 +444,7 @@ public class BombermanGame extends Application  {
             if (r1.intersects(r2)) {
                 bomberman.stay();
                 bomberman.setAlive(false);
-                lives = lives - 1;
+               // lives = lives - 1;
                 startBomb = 1;
                 startFlame = 1;
                 startSpeed = 2;
@@ -458,7 +460,7 @@ public class BombermanGame extends Application  {
                                 entities.remove(bomberman);
                                 bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
                                 entities.add(bomberman);
-                                if (!muted.isMutedSound()) new Music(DEAD).play();
+                                //f (!muted.isMutedSound()) new Music(DEAD).play();
                                 count.cancel();
                             }
                         }, 500,1);

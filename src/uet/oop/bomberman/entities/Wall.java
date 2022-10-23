@@ -18,6 +18,6 @@ public class Wall extends Entity {
     }
     @Override
     public Rectangle getHitBox() {
-        return new Rectangle(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE-20);
+        return new Rectangle(x, y, Sprite.SCALED_SIZE-5, Sprite.SCALED_SIZE-10);
     }
 }

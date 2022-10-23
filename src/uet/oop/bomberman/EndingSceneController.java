@@ -37,6 +37,8 @@ public class EndingSceneController {
 
     @FXML
     public void switchToMenu(ActionEvent event) throws IOException {
+        BombermanGame.gameLost.stop();
+        BombermanGame.gameWin.stop();
         Scene lvscene = BombermanGame.createSceneLevel();
         BombermanGame.lc.setLvScene(lvscene);
         BombermanGame.load(BombermanGame.level);
