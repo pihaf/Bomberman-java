@@ -37,7 +37,7 @@ import static uet.oop.bomberman.audio.Music.*;
 public class BombermanGame extends Application  {
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
-    public static Music music = new Music(Music.BACKGROUND_MUSIC);
+    public static Music music = new Music(MENU_BACKGROUND);
     public static Music menuMusic = new Music(MENU_BACKGROUND);
     public static Muted muted = new Muted();
     public Music music() {
@@ -93,8 +93,9 @@ public class BombermanGame extends Application  {
 
     public void startGame(Stage stage, Scene lvscene) {
         ArrayList<Bomb> bombs = bomberman.getBombs();
-        entities.add(bomberman);
+        //entities.add(bomberman);
         AnimationTimer timer = new AnimationTimer() {
+
             public long prevTime = 0;
             @Override
             public void handle(long now) {
@@ -109,7 +110,7 @@ public class BombermanGame extends Application  {
                             ArrayList<Bomb> bombs = bomberman.getBombs();
                             load(level);
                             stage.setScene(lvscene);
-                            stage.show();
+                            //stage.show();
                             finishedLevel = false;
                             startGame(stage, lvscene);
                         } else {
@@ -123,7 +124,7 @@ public class BombermanGame extends Application  {
                                 }
                                 Scene scene = new Scene(root);
                                 stage.setScene(scene);
-                                stage.show();
+                                //stage.show();
                             } else {
                                 Parent root = null;
                                 try {
@@ -133,8 +134,9 @@ public class BombermanGame extends Application  {
                                 }
                                 Scene scene = new Scene(root);
                                 stage.setScene(scene);
-                                stage.show();
+                                //stage.show();
                             }
+
                         }
                     }
                     prevTime = now;
@@ -142,10 +144,13 @@ public class BombermanGame extends Application  {
             }
         };
         timer.start();
+        stage.show();
+        if(lives == 0) System.out.println("lose");
         lvscene.setOnKeyPressed(event -> {
             bomberman.handleKeyPressedEvent(event.getCode());
         });
         lvscene.setOnKeyReleased(event -> bomberman.handleKeyReleasedEvent(event.getCode()));
+            System.out.println("win");
     }
 
     public Scene createSceneLevel() {
@@ -236,6 +241,7 @@ public class BombermanGame extends Application  {
                     }
                     if (r.charAt(j) == 'p') {
                         bomberman = new Bomber(j, i, Sprite.player_right.getFxImage());
+                        entities.add(bomberman);
                         xStart = j;
                         yStart = i;
                         map[i][j] = 0;
@@ -352,7 +358,7 @@ public class BombermanGame extends Application  {
                                 entities.remove(bomberman);
                                 bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
                                 entities.add(bomberman);
-                                if (!muted.isMutedSound()) new Music(DEAD).play();
+
                                 count.cancel();
                             }
                         }, 500,1);
@@ -410,7 +416,7 @@ public class BombermanGame extends Application  {
                 Rectangle r2 = enemy.getHitBox();
                 if (r1.intersects(r2)) {
                     enemy.setAlive(false);
-                    if (!muted.isMutedSound()) new Music(ENEMY_DEAD).play();
+                    //if (!muted.isMutedSound()) new Music(ENEMY_DEAD).play();
                 }
             }
             //flame vs bomberman
@@ -434,7 +440,7 @@ public class BombermanGame extends Application  {
                                 entities.remove(bomberman);
                                 bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
                                 entities.add(bomberman);
-                                if (!muted.isMutedSound()) new Music(DEAD).play();
+                                //if (!muted.isMutedSound()) new Music(DEAD).play();
                                 count.cancel();
                             }
                         }, 500,1);
