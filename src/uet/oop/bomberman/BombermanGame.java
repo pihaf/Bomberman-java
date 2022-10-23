@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
@@ -32,7 +33,7 @@ import static uet.oop.bomberman.audio.Music.*;
 public class BombermanGame extends Application  {
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
-    public static Music music = new Music(Music.BACKGROUND_MUSIC);
+    public static Music music = new Music(CHEERING);
     public static Music gameWin = new Music(CHEERING);
     public static Music gameLost = new Music(GAME_LOST);
     public static Music menuMusic = new Music(MENU_BACKGROUND);
@@ -43,6 +44,7 @@ public class BombermanGame extends Application  {
     public void setMusic(Music _music) {
         music = _music;
     }
+    private static boolean paused = false;
     private static int xStart = 0;
     private static int yStart = 0;
     public static int level = 1;
@@ -96,68 +98,73 @@ public class BombermanGame extends Application  {
             public void handle(long now) {
                 long dt = now - prevTime;
                 if (dt > 10000000) {
-                    render();
-                    update();
-                    if (finishedLevel) {
-                        if (level <= MAX_LEVEL) {
-                            stop();
-                            if (!muted.isMutedSound()) {
-                                gameWin.play();
-                            }
-                            Scene lvscene = createSceneLevel();
-                            lc.setLvScene(lvscene);
-                            ArrayList<Bomb> bombs = bomberman.getBombs();
-                            load(level);
-                            if (!muted.isMutedMusic()) {
-                                music.loop();
-                            }
-                            stage.setScene(lvscene);
-                            stage.show();
-                            finishedLevel = false;
-                            startGame(stage, lvscene);
-                        } else {
-                            lc.setWon(true);
-                            if (lc.isWon()) {
+                    if(paused){
+
+                    }
+                    else {
+                        render();
+                        update();
+                        if (finishedLevel) {
+                            if (level <= MAX_LEVEL) {
                                 stop();
-                                music.stop();
                                 if (!muted.isMutedSound()) {
-                                    new Music(CHEERING).play();
+                                    gameWin.play();
                                 }
-                                Parent root = null;
-                                try {
-                                    root = FXMLLoader.load(getClass().getResource("/fxml/WinScene.fxml"));
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
+                                Scene lvscene = createSceneLevel();
+                                lc.setLvScene(lvscene);
+                                ArrayList<Bomb> bombs = bomberman.getBombs();
+                                load(level);
+                                if (!muted.isMutedMusic()) {
+                                    music.loop();
                                 }
-                                Scene scene = new Scene(root);
-                                stage.setScene(scene);
+                                stage.setScene(lvscene);
                                 stage.show();
-                                lc.setWon(false);
-                                level = 1;
-                                lives = 5;
-                                stop();
+                                finishedLevel = false;
+                                startGame(stage, lvscene);
+                            } else {
+                                lc.setWon(true);
+                                if (lc.isWon()) {
+                                    stop();
+                                    music.stop();
+                                    if (!muted.isMutedSound()) {
+                                        new Music(CHEERING).play();
+                                    }
+                                    Parent root = null;
+                                    try {
+                                        root = FXMLLoader.load(getClass().getResource("/fxml/WinScene.fxml"));
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    Scene scene = new Scene(root);
+                                    stage.setScene(scene);
+                                    stage.show();
+                                    lc.setWon(false);
+                                    level = 1;
+                                    lives = 5;
+                                    stop();
+                                }
                             }
+                        } else if (lc.isLost()) {
+                            stop();
+                            music.stop();
+                            Parent root = null;
+                            if (!muted.isMutedSound()) {
+                                Music gameLost = new Music(GAME_LOST);
+                                gameLost.play();
+                            }
+                            try {
+                                root = FXMLLoader.load(getClass().getResource("/fxml/LoseScene.fxml"));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            Scene scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
+                            lc.setLost(false);
+                            level = 1;
+                            lives = 5;
+                            stop();
                         }
-                    } else if (lc.isLost()) {
-                        stop();
-                        music.stop();
-                        Parent root = null;
-                        if (!muted.isMutedSound()) {
-                           Music gameLost = new Music(GAME_LOST);
-                           gameLost.play();
-                        }
-                        try {
-                            root = FXMLLoader.load(getClass().getResource("/fxml/LoseScene.fxml"));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        Scene scene = new Scene(root);
-                        stage.setScene(scene);
-                        stage.show();
-                        lc.setLost(false);
-                        level = 1;
-                        lives = 5;
-                        stop();
                     }
                     prevTime = now;
                 }
@@ -165,7 +172,15 @@ public class BombermanGame extends Application  {
         };
         timer.start();
         lvscene.setOnKeyPressed(event -> {
-            bomberman.handleKeyPressedEvent(event.getCode());
+            bomberman.handleKeyPressedEvent(event.getCode());if(event.getCode() == KeyCode.P) {
+                if (paused) {
+                    paused = false;
+                    music.loop();
+                } else {
+                    paused = true;
+                    music.stop();
+                }
+            }
         });
         lvscene.setOnKeyReleased(event -> bomberman.handleKeyReleasedEvent(event.getCode()));
     }
