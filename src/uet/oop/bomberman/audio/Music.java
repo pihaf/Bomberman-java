@@ -10,7 +10,7 @@ import static uet.oop.bomberman.audio.Music.Loopable.LOOP;
 public class Music implements Runnable {
 
     // Tên file các audio
-    public static final String BACKGROUND_MUSIC = "background_musicfinal";
+    public static final String BACKGROUND_MUSIC = "back_groundfinalfinal";
     public static final String PLACE_BOMB = "place_bomb";
     public static final String POWER_UP = "power_up";
     public static final String EXPLOSION = "explosion";

@@ -12,6 +12,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.audio.Music;
@@ -33,8 +35,7 @@ import static uet.oop.bomberman.audio.Music.*;
 public class BombermanGame extends Application  {
     public static int WIDTH = 31;
     public static int HEIGHT = 13;
-    public static Music music = new Music(CHEERING);
-    public static Music gameWin = new Music(CHEERING);
+    public static Music music = new Music(BACKGROUND_MUSIC);
     public static Music gameLost = new Music(GAME_LOST);
     public static Music menuMusic = new Music(MENU_BACKGROUND);
     public static Muted muted = new Muted();
@@ -66,7 +67,15 @@ public class BombermanGame extends Application  {
     public static boolean finishedLevel = false;
     public static final int MAX_LEVEL = 5;
     public static int lives = 5;
-
+    public static int score = 0;
+    public static Text scoreText = createText(15 * Sprite.SCALED_SIZE, 0.5 * Sprite.SCALED_SIZE, "Score: ");
+    public static Text livesText = createText(2 * Sprite.SCALED_SIZE, 0.5 * Sprite.SCALED_SIZE,"Lives: ");
+    public static Text createText(double x, double y, String s) {
+        Text t = new Text(x, y, s);
+        t.setFill(Color.BLUE);
+        t.setStrokeWidth(30);
+        return t;
+    }
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -108,7 +117,7 @@ public class BombermanGame extends Application  {
                             if (level <= MAX_LEVEL) {
                                 stop();
                                 if (!muted.isMutedSound()) {
-                                    gameWin.play();
+                                    new Music(LEVEL_COMPLETE).play();
                                 }
                                 Scene lvscene = createSceneLevel();
                                 lc.setLvScene(lvscene);
@@ -141,6 +150,7 @@ public class BombermanGame extends Application  {
                                     lc.setWon(false);
                                     level = 1;
                                     lives = 5;
+                                    score = 0;
                                     stop();
                                 }
                             }
@@ -163,6 +173,7 @@ public class BombermanGame extends Application  {
                             lc.setLost(false);
                             level = 1;
                             lives = 5;
+                            score = 0;
                             stop();
                         }
                     }
@@ -175,7 +186,9 @@ public class BombermanGame extends Application  {
             bomberman.handleKeyPressedEvent(event.getCode());if(event.getCode() == KeyCode.P) {
                 if (paused) {
                     paused = false;
-                    music.loop();
+                    if (!muted.isMutedMusic()) {
+                        music.loop();
+                    }
                 } else {
                     paused = true;
                     music.stop();
@@ -191,7 +204,7 @@ public class BombermanGame extends Application  {
         gc = canvas.getGraphicsContext2D();
         // Tao level container
         Group lv = new Group();
-        lv.getChildren().add(canvas);
+        lv.getChildren().addAll(canvas, scoreText, livesText);
         // Tao scene
         Scene scene = new Scene(lv);
         return scene;
@@ -318,6 +331,8 @@ public class BombermanGame extends Application  {
         for (int i = 0; i < stillObjects.size(); i ++) {
             stillObjects.get(i).update();
         }
+        livesText.setText("Lives: " + lives);
+        scoreText.setText("Score: " + score);
         handleCollision();
         checkCollisionFlame();
     }
@@ -378,7 +393,6 @@ public class BombermanGame extends Application  {
             if (bomber.intersects(r2)) {
                 bomberman.stay();
                 bomberman.setAlive(false);
-                //lives = lives - 1;
                 startBomb = 1;
                 startFlame = 1;
                 startSpeed = 2;
@@ -451,7 +465,7 @@ public class BombermanGame extends Application  {
                 Rectangle r2 = enemy.getHitBox();
                 if (r1.intersects(r2)) {
                     enemy.setAlive(false);
-                    //if (!muted.isMutedSound()) new Music(ENEMY_DEAD).play();
+                    score += 100;
                 }
             }
             //flame vs bomberman

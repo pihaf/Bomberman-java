@@ -119,10 +119,10 @@ public class MenuController implements Initializable {
         //change scene
         if(!BombermanGame.muted.isMutedSound()) {
             new Music(Music.CLICKED).play();
-            BombermanGame.music = new Music(Music.MENU_BACKGROUND);
         }
         BombermanGame.menuMusic.stop();
         if(!BombermanGame.muted.isMutedMusic()) {
+            BombermanGame.music = new Music(Music.BACKGROUND_MUSIC);
             BombermanGame.music.loop();
         } else {
             BombermanGame.music.stop();
