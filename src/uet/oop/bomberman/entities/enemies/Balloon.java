@@ -2,9 +2,12 @@ package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.audio.Music;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
+
+import static uet.oop.bomberman.audio.Music.ENEMY_DEAD;
 
 public class Balloon extends Enemy {
     private int direction;
@@ -25,11 +28,17 @@ public class Balloon extends Enemy {
             if (direction == 1) goRight();
             if (direction == 2) goUp();
             if (direction == 3) goDown();
-        } else if(animated < 30) {
-            animated ++;
-            img = Sprite.balloom_dead.getFxImage();
         } else {
-            BombermanGame.enemies.remove(this);
+            timeCounter++;
+            if(timeCounter == 1) {
+                if (!BombermanGame.muted.isMutedSound())new Music(ENEMY_DEAD).play();
+            }
+            if (animated < 30) {
+                animated++;
+                img = Sprite.balloom_dead.getFxImage();
+            } else {
+                BombermanGame.enemies.remove(this);
+            }
         }
     }
 

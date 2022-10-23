@@ -18,6 +18,6 @@ public class Item extends Entity {
 
     @Override
     public Rectangle getHitBox() {
-        return new Rectangle(x, y, Sprite.SCALED_SIZE-30, Sprite.SCALED_SIZE-30);
+        return new Rectangle(x+10, y+10, Sprite.SCALED_SIZE-30, Sprite.SCALED_SIZE-30);
     }
 }

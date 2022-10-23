@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.enemies;
 import javafx.scene.image.Image;
 
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.audio.Music;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
@@ -11,6 +12,8 @@ import uet.oop.bomberman.graphics.Sprite;
 import java.awt.*;
 import java.util.Random;
 import java.util.List;
+
+import static uet.oop.bomberman.audio.Music.ENEMY_DEAD;
 
 public class Oneal extends Enemy {
     private int prevBombX = 1;
@@ -31,7 +34,7 @@ public class Oneal extends Enemy {
         AStar as = new AStar(AStarTemp, this.x / Sprite.SCALED_SIZE,
                 this.y / Sprite.SCALED_SIZE, true);
         List<AStar.Node> path = as.findPathTo(BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE,
-                BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE);
+                BombermanGame.bomberman.getY() / Sprite.SCALED_SIZE);
         generateDirection();
     }
 
@@ -68,13 +71,19 @@ public class Oneal extends Enemy {
 
         if(isAlive()){
 
-        } else if(animated < 30) {
-            super.stay();
-
-            animated++;
-            img = Sprite.oneal_dead.getFxImage();
         } else {
-            BombermanGame.enemies.remove(this);
+            timeCounter++;
+            if(timeCounter == 1) {
+                if (!BombermanGame.muted.isMutedSound())new Music(ENEMY_DEAD).play();
+            }
+            if (animated < 30) {
+                super.stay();
+
+                animated++;
+                img = Sprite.oneal_dead.getFxImage();
+            } else {
+                BombermanGame.enemies.remove(this);
+            }
         }
     }
 
@@ -85,7 +94,7 @@ public class Oneal extends Enemy {
             as = new AStar(AStarTemp, this.x / Sprite.SCALED_SIZE,
                     this.y / Sprite.SCALED_SIZE, true);
             path = as.findPathTo(BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE,
-                    BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE);
+                    BombermanGame.bomberman.getY() / Sprite.SCALED_SIZE);
             prevBombX = BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE;
             prevBombY = BombermanGame.bomberman.getY() / Sprite.SCALED_SIZE;
             changed = true;

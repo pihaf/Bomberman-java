@@ -2,11 +2,16 @@ package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.audio.Music;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
+import static uet.oop.bomberman.audio.Music.DEAD;
+import static uet.oop.bomberman.audio.Music.ENEMY_DEAD;
+
 public class Doll extends Enemy{
+
     private int direction;
 
     public Doll(int xUnit, int yUnit, Image img) {
@@ -21,11 +26,18 @@ public class Doll extends Enemy{
         if(isAlive()) {
             if (direction == 0) goLeft();
             if (direction == 1) goRight();
-        } else if(animated < 30){
-            animated ++;
-            img = Sprite.doll_dead.getFxImage();
-        }else
-            BombermanGame.enemies.remove(this);
+        } else {
+            timeCounter++;
+            if(timeCounter == 1) {
+                if (!BombermanGame.muted.isMutedSound())new Music(ENEMY_DEAD).play();
+            }
+            if(animated < 30){
+                animated ++;
+                img = Sprite.doll_dead.getFxImage();
+            }else {
+                BombermanGame.enemies.remove(this);
+            }
+        }
     }
 
     public void goLeft() {

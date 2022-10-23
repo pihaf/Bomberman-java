@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.AnimatedEntity;
 
 public abstract class Enemy extends AnimatedEntity {
+    protected int timeCounter = 0;
     protected int startX;
     protected int startY;
     public Enemy(int xUnit, int yUnit, Image img) {
