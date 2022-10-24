@@ -8,7 +8,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.audio.Music.EXPLOSION;
 
-public class Bomb extends Entity {
+public class Bomb extends UnmovableEntity {
     private int timeCounter = 0;
     private int radius;
     public Bomb(int x, int y, Image img , int radius ) {

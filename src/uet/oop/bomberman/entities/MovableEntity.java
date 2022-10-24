@@ -4,7 +4,7 @@ import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
 import java.awt.*;
 
-public abstract class AnimatedEntity extends Entity {
+public abstract class MovableEntity extends Entity {
     protected int animate = 0;
     protected final int MAX_ANIMATE = 7500; //save the animation status and dont let this get too big
     protected int desX = x;
@@ -15,7 +15,7 @@ public abstract class AnimatedEntity extends Entity {
     protected int up = 0;
     protected int down = 0;
 
-    public AnimatedEntity(int xUnit, int yUnit, Image img) {
+    public MovableEntity(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         alive = true;
     }

@@ -1,9 +1,9 @@
 package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.AnimatedEntity;
+import uet.oop.bomberman.entities.MovableEntity;
 
-public abstract class Enemy extends AnimatedEntity {
+public abstract class Enemy extends MovableEntity {
     protected int timeCounter = 0;
     protected int startX;
     protected int startY;

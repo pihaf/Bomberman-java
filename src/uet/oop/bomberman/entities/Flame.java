@@ -6,7 +6,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
 
-public class Flame extends Entity implements CollisionTypeCheck{
+public class Flame extends UnmovableEntity implements CollisionTypeCheck{
     private int left;
     private int right;
     private int top;

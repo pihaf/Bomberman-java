@@ -5,7 +5,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
 
-public class Grass extends Entity {
+public class Grass extends UnmovableEntity {
 
     public Grass(int x, int y, Image img) {
         super(x, y, img);

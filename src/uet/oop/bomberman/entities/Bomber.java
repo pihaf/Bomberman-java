@@ -12,7 +12,7 @@ import static uet.oop.bomberman.audio.Music.DEAD;
 import static uet.oop.bomberman.audio.Music.PLACE_BOMB;
 
 
-public class Bomber extends AnimatedEntity {
+public class Bomber extends MovableEntity {
     private int timeCounter = 0;
     private int bombNum ;
 

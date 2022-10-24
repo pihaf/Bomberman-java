@@ -5,7 +5,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
 
-public class Wall extends Entity {
+public class Wall extends UnmovableEntity {
 
     public Wall(int x, int y, Image img) {
         super(x, y, img);

@@ -6,7 +6,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
 
-public class Brick extends Entity{
+public class Brick extends UnmovableEntity {
     public Brick(int x, int y, Image img) {
         super(x, y, img);
         setLayer(3);

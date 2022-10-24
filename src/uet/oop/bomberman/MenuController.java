@@ -24,6 +24,8 @@ import java.util.ResourceBundle;
 
 import uet.oop.bomberman.audio.Music;
 
+import static uet.oop.bomberman.BombermanGame.startGame;
+
 public class MenuController implements Initializable {
     private int count = 0;
     @FXML
@@ -130,7 +132,7 @@ public class MenuController implements Initializable {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(BombermanGame.lc.getLvScene());
         stage.show();
-        BombermanGame.startGame(stage, BombermanGame.lc.getLvScene());
+        startGame(stage, BombermanGame.lc.getLvScene());
     }
     @FXML
     public void settingOptionClickedHandle(ActionEvent event) throws IOException {

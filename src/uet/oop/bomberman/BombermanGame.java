@@ -55,8 +55,6 @@ public class BombermanGame extends Application  {
     public static final List<Enemy> enemies = new ArrayList<>();
     public static final List<Flame> flame = new ArrayList<>();
     public static int[][] map = new int[HEIGHT][WIDTH];
-    //start flame radius, neu co powerups thi tang len
-    public int flameRadius = 1;
     public static int startBomb = 1;
     public static int startSpeed = 2;
     public static int startFlame = 1;
@@ -273,7 +271,7 @@ public class BombermanGame extends Application  {
                         enemies.add(new Minvo(j, i, Sprite.minvo_left1.getFxImage()));
                         //map[i][j] = 0;
                     }
-                        if (r.charAt(j) == '4') {
+                    if (r.charAt(j) == '4') {
                         enemies.add(new Kondoria(j, i, Sprite.kondoria_left1.getFxImage()));
                         //map[i][j] = 0;
                     }
@@ -357,7 +355,7 @@ public class BombermanGame extends Application  {
         }
         flame.forEach(g -> g.render(gc));
     }
-// handle collision, da xong phan cuc da
+    // handle collision, da xong phan cuc da
     public static void handleCollision() {
         Rectangle bomber = bomberman.getHitBox();
         for (Entity stillObject : stillObjects) {
@@ -376,25 +374,25 @@ public class BombermanGame extends Application  {
         //Bomber vs Item
         for (int i = 0 ; i < stillObjects.size(); i++) {
             Rectangle item = stillObjects.get(i).getHitBox();
-                if(item.intersects(bomber)) {
-                    if(stillObjects.get(i) instanceof  FlameItem) {
-                        if (!muted.isMutedSound()) new Music(POWER_UP).play();
-                        bomberman.setRadius(startFlame+=2);
-                        stillObjects.remove(stillObjects.get(i));
-                    }
-                    if(stillObjects.get(i) instanceof BombItem) {
-                        if (!muted.isMutedSound()) new Music(POWER_UP).play();
-                        bomberman.setBombNum(startBomb+=2);
-                        stillObjects.remove(stillObjects.get(i));
+            if(item.intersects(bomber)) {
+                if(stillObjects.get(i) instanceof  FlameItem) {
+                    if (!muted.isMutedSound()) new Music(POWER_UP).play();
+                    bomberman.setRadius(startFlame+=2);
+                    stillObjects.remove(stillObjects.get(i));
+                }
+                if(stillObjects.get(i) instanceof BombItem) {
+                    if (!muted.isMutedSound()) new Music(POWER_UP).play();
+                    bomberman.setBombNum(startBomb+=2);
+                    stillObjects.remove(stillObjects.get(i));
 
-                    }
-                    if(stillObjects.get(i) instanceof  SpeedItem) {
-                        if (!muted.isMutedSound()) new Music(POWER_UP).play();
-                        bomberman.setSpeed(startSpeed+=2);
-                        stillObjects.remove(stillObjects.get(i));
-                    }
+                }
+                if(stillObjects.get(i) instanceof  SpeedItem) {
+                    if (!muted.isMutedSound()) new Music(POWER_UP).play();
+                    bomberman.setSpeed(startSpeed+=2);
+                    stillObjects.remove(stillObjects.get(i));
                 }
             }
+        }
         //Bomber vs Enemies
         for (Enemy enemy : enemies) {
             Rectangle r2 = enemy.getHitBox();
@@ -484,25 +482,24 @@ public class BombermanGame extends Application  {
                 startFlame = 1;
                 startSpeed = 2;
             }
-                if (!bomberman.isAlive()) {
-                    if (lives == 0) {
-                        lc.setLost(true);
-                    } else {
-                        Timer count = new Timer();
-                        count.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                entities.remove(bomberman);
-                                bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-                                entities.add(bomberman);
-                                //f (!muted.isMutedSound()) new Music(DEAD).play();
-                                count.cancel();
-                            }
-                        }, 500,1);
-                    }
-                    break;
+            if (!bomberman.isAlive()) {
+                if (lives == 0) {
+                    lc.setLost(true);
+                } else {
+                    Timer count = new Timer();
+                    count.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            entities.remove(bomberman);
+                            bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
+                            entities.add(bomberman);
+                            //f (!muted.isMutedSound()) new Music(DEAD).play();
+                            count.cancel();
+                        }
+                    }, 500,1);
                 }
+                break;
             }
         }
-        }
-
+    }
+}
