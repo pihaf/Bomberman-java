@@ -37,12 +37,6 @@ public class BombermanGame extends Application  {
     public static Music music = new Music(BACKGROUND_MUSIC);
     public static Music menuMusic = new Music(MENU_BACKGROUND);
     public static Muted muted = new Muted();
-    public Music music() {
-        return music;
-    }
-    public void setMusic(Music _music) {
-        music = _music;
-    }
     private static boolean paused = false;
     private static int xStart = 0;
     private static int yStart = 0;
@@ -51,7 +45,6 @@ public class BombermanGame extends Application  {
     private static Canvas canvas;
     private static Scanner scanner;
     public static List<Text> scores = new ArrayList<>();
-    public static final int MAX_SCORES = 10;
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
     public static final List<Enemy> enemies = new ArrayList<>();
