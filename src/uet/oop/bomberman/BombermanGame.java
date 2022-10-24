@@ -14,10 +14,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.audio.Music;
-import uet.oop.bomberman.entities.enemies.*;
-import uet.oop.bomberman.entities.item.BombItem;
-import uet.oop.bomberman.entities.item.FlameItem;
-import uet.oop.bomberman.entities.item.SpeedItem;
+import uet.oop.bomberman.entities.movable.enemies.*;
+import uet.oop.bomberman.entities.unmovable.item.BombItem;
+import uet.oop.bomberman.entities.unmovable.item.FlameItem;
+import uet.oop.bomberman.entities.unmovable.item.SpeedItem;
+import uet.oop.bomberman.entities.movable.Bomber;
+import uet.oop.bomberman.entities.unmovable.*;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
