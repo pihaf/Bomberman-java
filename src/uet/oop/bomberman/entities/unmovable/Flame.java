@@ -7,7 +7,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
 
-public class Flame extends UnmovableEntity implements CollisionTypeCheck {
+public class Flame extends UnmovableEntity {
     private int left;
     private int right;
     private int top;
@@ -167,7 +167,6 @@ public class Flame extends UnmovableEntity implements CollisionTypeCheck {
         }
     }
 
-    @Override
     public Object collisionType(Rectangle r) {
         for (Entity e : BombermanGame.stillObjects) {
             if (e instanceof Brick || e instanceof Wall) {
