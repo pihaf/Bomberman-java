@@ -32,7 +32,6 @@ public class Bomber extends MovableEntity {
     private int timeAfterDie = 0;
     public Bomber(int x, int y, Image img ) {
         super( x, y, img);
-        setLayer(1);
         setSpeed(2);
         bombNum = 1;
         setRadius(1);

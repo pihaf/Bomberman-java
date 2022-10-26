@@ -91,11 +91,4 @@ public class Music implements Runnable {
                 break;
         }
     }
-    public static boolean isMuted() {
-        return _muted;
-    }
-
-    public void set_muted(boolean _muted) {
-        Music._muted = _muted;
-    }
 }
